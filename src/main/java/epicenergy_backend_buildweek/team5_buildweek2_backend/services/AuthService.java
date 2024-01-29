@@ -1,8 +1,8 @@
 package epicenergy_backend_buildweek.team5_buildweek2_backend.services;
 
 
-import epicenergy_backend_buildweek.team5_buildweek2_backend.entites.Role;
-import epicenergy_backend_buildweek.team5_buildweek2_backend.entites.User;
+import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.User;
+import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.enums.Role;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.exceptions.BadRequestException;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.exceptions.UnauthorizedException;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.users.NewUserDTO;

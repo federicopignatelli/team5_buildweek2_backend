@@ -1,6 +1,6 @@
 package epicenergy_backend_buildweek.team5_buildweek2_backend.services;
 
-import epicenergy_backend_buildweek.team5_buildweek2_backend.entites.User;
+import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.User;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.exceptions.NotFoundException;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.repositories.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package epicenergy_backend_buildweek.team5_buildweek2_backend.controllers;
 
-import epicenergy_backend_buildweek.team5_buildweek2_backend.entites.User;
+import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.User;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.exceptions.BadRequestException;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.users.NewUserDTO;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.users.NewUserResponseDTO;

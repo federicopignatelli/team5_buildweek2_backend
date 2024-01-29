@@ -1,6 +1,6 @@
 package epicenergy_backend_buildweek.team5_buildweek2_backend.security;
 
-import epicenergy_backend_buildweek.team5_buildweek2_backend.entites.User;
+import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.User;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.exceptions.UnauthorizedException;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.services.UserService;
 import jakarta.servlet.FilterChain;

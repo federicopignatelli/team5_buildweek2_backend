@@ -1,11 +1,9 @@
 package epicenergy_backend_buildweek.team5_buildweek2_backend.controllers;
 
 
-import epicenergy_backend_buildweek.team5_buildweek2_backend.entites.User;
+import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.User;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.services.UserService;
-import kong.unirest.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.datasource.UserCredentialsDataSourceAdapter;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 

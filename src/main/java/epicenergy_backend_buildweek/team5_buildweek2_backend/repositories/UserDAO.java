@@ -1,6 +1,6 @@
 package epicenergy_backend_buildweek.team5_buildweek2_backend.repositories;
 
-import epicenergy_backend_buildweek.team5_buildweek2_backend.entites.User;
+import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

@@ -1,6 +1,7 @@
-package epicenergy_backend_buildweek.team5_buildweek2_backend.entites;
+package epicenergy_backend_buildweek.team5_buildweek2_backend.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.enums.Role;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
