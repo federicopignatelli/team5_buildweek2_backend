@@ -4,15 +4,18 @@ import com.opencsv.CSVParser;
 import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
+import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.Comune;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.Provincia;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.repositories.ComuneRepository;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.repositories.ProvinciaRepository;
+import epicenergy_backend_buildweek.team5_buildweek2_backend.services.ProvinciaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 @Component
 public class PopulateData {
@@ -49,9 +52,23 @@ public class PopulateData {
                         provincia.setRegine(line[2]);
                         provinciaRepository.save(provincia);
                     }
-                    // save comini
+                    // save comuni
                     else if (line.length == 4) {
-                        System.out.println("codice provincia: " + line[0] + " progressivo del comune: " + line[1] + " denominazione in Italia " + line[2] + " provincia " + line[3]);
+                        // checkes wheather if there are multiple provices starts with same name
+                        // Becase CSV relations are not well-defined
+                        List<Provincia> provinciaList = provinciaRepository.findByFirstFourLetters(line[3]);
+                        System.out.println("this is list: " + provinciaList + " check this: " + line[3]);
+                        if(!provinciaList.isEmpty()) {
+                            Comune comune = new Comune();
+                            comune.setCodiceProvincia(Integer.parseInt(line[0]));
+                            comune.setProgressiviDelComune(Integer.parseInt(line[1]));
+                            comune.setDenominazioneInItaliano(line[2]);
+                            comune.setProvincia(provinciaList.get(0));
+                            comuneRepository.save(comune);
+                        } else {
+                            System.out.println("found out of rule " + line[3] + " lenght: " + line.length);
+                        }
+//                        System.out.println("codice provincia: " + line[0] + " progressivo del comune: " + line[1] + " denominazione in Italia " + line[2] + " provincia " + line[3]);
                     } else {
                         // throw exception
                         System.out.println("out of request");

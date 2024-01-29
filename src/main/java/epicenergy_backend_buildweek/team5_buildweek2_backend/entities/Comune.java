@@ -1,9 +1,7 @@
 package epicenergy_backend_buildweek.team5_buildweek2_backend.entities;
 
 import com.opencsv.bean.CsvBindByPosition;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -19,5 +17,8 @@ public class Comune {
     private Integer codiceProvincia;
     private Integer progressiviDelComune;
     private String denominazioneInItaliano;
+    @ManyToOne
+    @JoinColumn(name = "provincia_id")
+    private Provincia provincia;
 }
 

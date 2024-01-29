@@ -23,7 +23,9 @@ public class RunnerPopulateData implements CommandLineRunner {
         System.out.println("hello isuru!");
 
         Path pathComuni = Paths.get("src/main/java/epicenergy_backend_buildweek/team5_buildweek2_backend/csvData/comuni-italiani.csv");
+        Path pathComuniMini = Paths.get("src/main/java/epicenergy_backend_buildweek/team5_buildweek2_backend/csvData/comuni-italiani-mini.csv");
         Path pathProvince = Paths.get("src/main/java/epicenergy_backend_buildweek/team5_buildweek2_backend/csvData/province-italiane.csv");
+        Path pathProvinceMini = Paths.get("src/main/java/epicenergy_backend_buildweek/team5_buildweek2_backend/csvData/province-italiane-mini.csv");
 
 //        if(Files.exists(pathProvince)) {
 //            System.out.println("file found");
@@ -31,7 +33,8 @@ public class RunnerPopulateData implements CommandLineRunner {
 //            System.out.println("file not found");
 //        }
 
-        populateData.readAllLines(pathProvince);
+        populateData.readAllLines(pathProvinceMini);
+        populateData.readAllLines(pathComuniMini);
 
 
 
