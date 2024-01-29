@@ -33,6 +33,7 @@ public class Cliente {
     @JoinColumn(name = "sede_legale_id")
     private Indirizzo indirizzoSedeLegale;
     private String urlLogoAziendale;
+    @Enumerated(EnumType.STRING)
     private TipoAzienda tipo;
 
     private LocalDate dataInserimento = LocalDate.now();

@@ -14,16 +14,16 @@ import java.util.UUID;
 public class Indirizzo {
     @Id
     @GeneratedValue
-    private UUID id;
+    private long id;
     private String via;
     private int civico;
     private String località;
-    private int CAP;
+    private String CAP;
     @OneToOne
     @JoinColumn
     private Comune comune;
 
-    public Indirizzo(String via, int civico, String località, int CAP, Comune comune) {
+    public Indirizzo(String via, int civico, String località, String CAP, Comune comune) {
         this.via = via;
         this.civico = civico;
         this.località = località;
