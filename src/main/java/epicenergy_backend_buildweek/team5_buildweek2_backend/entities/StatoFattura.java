@@ -2,20 +2,19 @@ package epicenergy_backend_buildweek.team5_buildweek2_backend.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.ToString;
 
 @Entity
-@Getter
-
-@Setter
-@AllArgsConstructor
+@Table(name = "stato_fattura")
 @NoArgsConstructor
-public class Provincia {
+@AllArgsConstructor
+@ToString
+@Getter
+public class StatoFattura {
     @Id
-    private String sigla;
-    private String provincia;
-    private String regine;
+    private String stato;
 }

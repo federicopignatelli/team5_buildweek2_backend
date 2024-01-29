@@ -20,3 +20,4 @@ public class Comune {
     private Integer progressiviDelComune;
     private String denominazioneInItaliano;
 }
+
