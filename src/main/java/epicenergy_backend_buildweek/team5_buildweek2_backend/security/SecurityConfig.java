@@ -42,7 +42,7 @@ public class SecurityConfig {
 
 	@Bean
 	PasswordEncoder getPWEncoder() {
-		return new BCryptPasswordEncoder(11);
+		return new BCryptPasswordEncoder(10);
 
 	}
 
