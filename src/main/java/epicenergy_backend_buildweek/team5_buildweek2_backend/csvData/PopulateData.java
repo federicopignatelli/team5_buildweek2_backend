@@ -13,41 +13,16 @@ import java.util.Objects;
 
 public class PopulateData {
     private String filePath = "./comuni-italiani.csv";
-//    public static void readAllLines(Path filePath) throws Exception {
-//        try (Reader reader = Files.newBufferedReader(filePath)) {
-//            try (CSVReader csvReader = new CSVReader(reader)) {
-//                List<String[]> list = csvReader.readAll();
-//                System.out.println(list);
-//            }
-//        }
-//    }
-//    public static void readAllLines() throws Exception {
-//        Path path = Paths.get(
-//                ClassLoader.getSystemResource("./comuni-italiani.csv").toURI()
-//        );
-//
-//        try (Reader reader = Files.newBufferedReader(path)) {
-//            try (CSVReader csvReader = new CSVReader(reader)) {
-//                List<String[]> list = csvReader.readAll();
-//                System.out.println(list);
-//            }
-//        }
-//    }
 
-    public static void readAllLines() throws Exception  {
-        try {
-            Path path = Paths.get(
-                    Objects.requireNonNull(ClassLoader.getSystemResource("comuni-italiani.csv")).toURI()
-            );
+    public static void readAllLines(Path filePath) throws Exception {
 
-            try (Reader reader = Files.newBufferedReader(path)) {
-                try (CSVReader csvReader = new CSVReader(reader)) {
-                    List<String[]> list = csvReader.readAll();
-                    System.out.println(list);
+        try (Reader reader = Files.newBufferedReader(filePath)) {
+            try (CSVReader csvReader = new CSVReader(reader)) {
+                String[] line;
+                while ((line = csvReader.readNext()) != null) {
+                    System.out.println(line.toString());
                 }
             }
-        } catch (URISyntaxException | IOException e) {
-            e.printStackTrace();
         }
     }
 }
