@@ -1,27 +1,23 @@
 package epicenergy_backend_buildweek.team5_buildweek2_backend.entities;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import java.util.UUID;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import lombok.*;
 
 @Entity
 @Getter
-@NoArgsConstructor
+@Setter
 @AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class Comune {
-   @Id
-   @GeneratedValue
-   private long id;
-   // @Id
-    // si poterebbe usare l'embedded per l'id
-    private String nome;
-    //@Id
-    //Embedded
-    @ManyToOne
-    @JoinColumn
-    private Provincia provincia;
+    @Id
+    @GeneratedValue
+    private Long id;
+    private Integer codiceProvincia;
+    private Integer progressiviDelComune;
+    private String denominazioneInItaliano;
 }
+

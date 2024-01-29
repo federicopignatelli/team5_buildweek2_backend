@@ -9,11 +9,13 @@ import lombok.Setter;
 
 @Entity
 @Getter
-@NoArgsConstructor
+
+@Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class Provincia {
     @Id
     private String sigla;
-    private String nome;
-    private String regione;
+    private String provincia;
+    private String regine;
 }
