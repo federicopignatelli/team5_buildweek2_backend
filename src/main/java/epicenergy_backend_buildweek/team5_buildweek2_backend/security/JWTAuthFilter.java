@@ -1,6 +1,8 @@
 package epicenergy_backend_buildweek.team5_buildweek2_backend.security;
 
+import epicenergy_backend_buildweek.team5_buildweek2_backend.entites.User;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.exceptions.UnauthorizedException;
+import epicenergy_backend_buildweek.team5_buildweek2_backend.services.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,7 +25,7 @@ public class JWTAuthFilter extends OncePerRequestFilter {
 	@Autowired
 	private JWTTools jwtTools;
 	@Autowired
-	private UsersService usersService;
+	private UserService userService;
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -40,8 +42,8 @@ public class JWTAuthFilter extends OncePerRequestFilter {
 			jwtTools.verifyToken(accessToken);
 
 
-			String id = jwtTools.extractIdFromToken(accessToken); // L'id è nel token quindi devo estrarlo da lì
-			User user = usersService.findById(UUID.fromString(id));
+			String id = jwtTools.extractIdFromToken(accessToken);
+			User user = userService.findById(UUID.fromString(id));
 
 
 			Authentication authentication = new UsernamePasswordAuthenticationToken(user, null,
