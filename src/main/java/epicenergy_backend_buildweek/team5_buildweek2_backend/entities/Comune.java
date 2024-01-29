@@ -1,9 +1,6 @@
 package epicenergy_backend_buildweek.team5_buildweek2_backend.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +13,9 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Comune {
+   @Id
+   @GeneratedValue
+   private long id;
    // @Id
     // si poterebbe usare l'embedded per l'id
     private String nome;
