@@ -1,4 +1,4 @@
-package Entities;
+package epicenergy_backend_buildweek.team5_buildweek2_backend.entities;
 
 import java.time.LocalDate;
 import java.util.UUID;

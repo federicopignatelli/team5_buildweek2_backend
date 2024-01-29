@@ -1,4 +1,4 @@
-package Entities;
+package epicenergy_backend_buildweek.team5_buildweek2_backend.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,6 +19,6 @@ public class Indirizzo {
     private int civico;
     private String località;
     private int CAP;
-    private String comune;
+    private Comune comune;
 
 }
