@@ -1,5 +1,6 @@
 package epicenergy_backend_buildweek.team5_buildweek2_backend.entites;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +15,10 @@ import java.util.UUID;
 @Getter
 @Setter
 @ToString
-public class User implements UserDetails {
+@Table(name = "users")
+@JsonIgnoreProperties({"password", "authorities", "accountNonExpired", "enabled", "accountNonLocked", "credentialsNonExpired", "username"})
+
+public class User implements UserDetails{
     @Id
     @GeneratedValue
     private UUID id;
