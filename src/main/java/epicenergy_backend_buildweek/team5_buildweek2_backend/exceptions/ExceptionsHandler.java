@@ -1,5 +1,6 @@
 package epicenergy_backend_buildweek.team5_buildweek2_backend.exceptions;
 
+import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.users.ErrorsDTO;
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -10,7 +11,6 @@ import java.nio.file.AccessDeniedException;
 import java.time.LocalDateTime;
 
 @RestControllerAdvice
-
 public class ExceptionsHandler {
     @ExceptionHandler(BadRequestException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
