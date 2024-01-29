@@ -1,6 +1,7 @@
 package epicenergy_backend_buildweek.team5_buildweek2_backend.services;
 
 import epicenergy_backend_buildweek.team5_buildweek2_backend.entites.User;
+import epicenergy_backend_buildweek.team5_buildweek2_backend.exceptions.NotFoundException;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.repositories.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,9 @@ public class UserService {
         found.setName(body.getName());
         found.setEmail(body.getEmail());
         found.setPassword(body.getPassword());
+        found.setAvatar(body.getAvatar());
+        found.setName(body.getName());
+        found.setRole(body.getRole());
         return userDAO.save(found);
     }
 
