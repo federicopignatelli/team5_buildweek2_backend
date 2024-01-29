@@ -1,5 +1,7 @@
 package epicenergy_backend_buildweek.team5_buildweek2_backend;
 
+import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.Comune;
+import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.Provincia;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

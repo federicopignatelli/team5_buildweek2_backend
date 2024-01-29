@@ -2,6 +2,7 @@ package epicenergy_backend_buildweek.team5_buildweek2_backend.exceptions;
 
 import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.users.ErrorsDTO;
 import org.apache.coyote.BadRequestException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
