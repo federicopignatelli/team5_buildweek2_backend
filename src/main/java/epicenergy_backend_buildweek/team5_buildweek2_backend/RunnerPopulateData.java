@@ -33,8 +33,8 @@ public class RunnerPopulateData implements CommandLineRunner {
 //            System.out.println("file not found");
 //        }
 
-        populateData.readAllLines(pathProvinceMini);
-        populateData.readAllLines(pathComuniMini);
+        populateData.readAllLines(pathProvince);
+        populateData.readAllLines(pathComuni);
 
 
 

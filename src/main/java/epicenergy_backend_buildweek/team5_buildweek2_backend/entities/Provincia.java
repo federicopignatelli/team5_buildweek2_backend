@@ -4,10 +4,7 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -25,4 +22,14 @@ public class Provincia {
 
     @OneToMany(mappedBy = "provincia", cascade = CascadeType.ALL)
     private List<Comune> comuneList;
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Provincia{");
+        sb.append("sigla='").append(sigla).append('\'');
+        sb.append(", provincia='").append(provincia).append('\'');
+        sb.append(", regine='").append(regine).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
 }

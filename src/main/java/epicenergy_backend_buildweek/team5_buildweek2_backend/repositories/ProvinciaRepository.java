@@ -12,5 +12,8 @@ import java.util.Optional;
 @Repository
 public interface ProvinciaRepository extends JpaRepository<Provincia, String> {
     @Query("SELECT p FROM Provincia p WHERE p.provincia LIKE CONCAT('%', :provincia, '%')")
-    List<Provincia> findByFirstFourLetters(@Param("provincia") String provincia);
+    List<Provincia> findByLikeProvincia(@Param("provincia") String provincia);
+
+    @Query("SELECT p FROM Provincia p WHERE SUBSTRING(p.provincia, 1, 4) = :provincia OR SUBSTRING(p.provincia, LENGTH(p.provincia) - 3, 4) = :provincia")
+    List<Provincia> findByFirstOrLastFourLetters(@Param("provincia") String provincia);
 }
