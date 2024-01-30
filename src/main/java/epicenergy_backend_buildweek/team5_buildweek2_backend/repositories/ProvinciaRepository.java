@@ -16,4 +16,9 @@ public interface ProvinciaRepository extends JpaRepository<Provincia, String> {
 
     @Query("SELECT p FROM Provincia p WHERE SUBSTRING(p.provincia, 1, 4) = :provincia OR SUBSTRING(p.provincia, LENGTH(p.provincia) - 3, 4) = :provincia")
     List<Provincia> findByFirstOrLastFourLetters(@Param("provincia") String provincia);
+
+    @Query("SELECT p FROM Provincia p WHERE SUBSTRING(p.provincia, 1, 4) = :provincia")
+    List<Provincia> findByFirstFourLetters(@Param("provincia") String provincia);
+
+//    SELECT * FROM provincia WHERE SUBSTRING(provincia.provincia, 1, 4) = 'Sud Sardegna';
 }

@@ -52,6 +52,10 @@ public class PopulateData {
                 while ((line = csvReader.readNext()) != null) {
                     // save province
                     if(line.length == 3) {
+                        // save sud sardegna
+                        Provincia sudSardegna = new Provincia("SU", "Sud Sardegna", "Sardegna");
+                        provinciaRepository.save(sudSardegna);
+
                         Provincia provincia = new Provincia();
                         provincia.setSigla(line[0]);
                         provincia.setProvincia(line[1]);
@@ -69,9 +73,8 @@ public class PopulateData {
 
                         if(provinciaList.isEmpty()) {
                             System.out.println("I passed here!");
-                            provinciaList = provinciaRepository.findByFirstOrLastFourLetters(line[3]);
+                            provinciaList = provinciaRepository.findByFirstFourLetters(line[3]);
                             System.out.println("This is handled reagions: " + provinciaList);
-
                         }
 
 

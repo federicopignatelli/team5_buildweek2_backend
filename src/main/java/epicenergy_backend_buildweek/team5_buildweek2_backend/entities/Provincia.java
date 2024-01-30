@@ -23,6 +23,12 @@ public class Provincia {
     @OneToMany(mappedBy = "provincia", cascade = CascadeType.ALL)
     private List<Comune> comuneList;
 
+    public Provincia(String sigla, String provincia, String regine) {
+        this.sigla = sigla;
+        this.provincia = provincia;
+        this.regine = regine;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Provincia{");
