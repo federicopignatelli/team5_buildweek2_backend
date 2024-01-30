@@ -23,6 +23,9 @@ public class FatturaService {
                 fattura.getImporto(), fattura.getCliente().getPartitaIva(),
                 fattura.getCliente().getRagioneSociale());
     }
+    private Fattura findById(long id){
+        return this.fatturaRepository.findById(id).orElseThrow(()->new NotFoundException(id));
+    }
     public Page<FatturaResponseDTO> findAll(int pageNumber, int size, String orderBy){
         if(size>100) size = 100;
         Pageable pageable = PageRequest.of(pageNumber,size, Sort.by(orderBy));
@@ -36,8 +39,8 @@ public class FatturaService {
         return new PageImpl<>(dtoList,pageable,paginaDiFatture.getTotalElements());
     }
 
-    public Fattura findByNumero(long numero){
-        return this.fatturaRepository.findById(numero).orElseThrow(()->new NotFoundException(numero));
+    public FatturaResponseDTO findByNumero(long numero){
+        return this.convertToDTO(this.findById(numero));
     }
     public FatturaResponseDTO save(NewFatturaDTO body){
         Cliente found = this.clienteService.findByPartitaIva(body.idCliente());
@@ -50,7 +53,7 @@ public class FatturaService {
                 found.getRagioneSociale());
     }
     public void findByNumeroAndDelete(long numero) {
-        Fattura found = this.findByNumero(numero);
+        Fattura found = this.findById(numero);
         fatturaRepository.delete(found);
     }
 }
