@@ -1,4 +1,4 @@
-package epicenergy_backend_buildweek.team5_buildweek2_backend.payloads;
+package epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.cliente;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -21,7 +21,7 @@ public record NewClienteDTOIndirizzoCompleto(
         @Size(min = 5, max = 5, message = "Il CAP deve avere esattamente 5 caratteri")
         @Pattern(regexp = "\\d{5}", message = "Il CAP deve essere composto da 5 caratteri numerici")
         String CAP,
-        String comune
+        Long idcomune
 
 ) {
 }
