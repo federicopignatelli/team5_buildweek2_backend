@@ -1,30 +1,32 @@
 package epicenergy_backend_buildweek.team5_buildweek2_backend.services;
 
+import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.Cliente;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.Indirizzo;
-import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.Provincia;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.exceptions.NotFoundException;
+import epicenergy_backend_buildweek.team5_buildweek2_backend.repositories.ClienteRepository;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.repositories.IndirizzoRepository;
-import epicenergy_backend_buildweek.team5_buildweek2_backend.repositories.ProvinciaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
-public class ProvinciaService {
+import java.util.UUID;
+
+public class IndirizzoService {
     @Autowired
-    private ProvinciaRepository provinciaRepository;
-    public Page<Provincia> findAll(int pageNumber, int size, String orderBy){
+    private IndirizzoRepository indirizzoRepository;
+    public Page<Indirizzo> findAll(int pageNumber, int size, String orderBy){
         if(size>100) size = 100;
         Pageable pageable = PageRequest.of(pageNumber,size, Sort.by(orderBy));
-        return this.provinciaRepository.findAll(pageable);
+        return this.indirizzoRepository.findAll(pageable);
     }
-    public Provincia findBySigla(String sigla){
-        return this.provinciaRepository.findById(sigla).orElseThrow(()->new NotFoundException(sigla));
+    public Indirizzo findById(long id){
+        return this.indirizzoRepository.findById(id).orElseThrow(()->new NotFoundException(id));
     }
 
-    public void findBySiglaAndDelete(String sigla) {
-        Provincia found = this.findBySigla(sigla);
-        provinciaRepository.delete(found);
+    public void findByIdAndDelete(long id) {
+        Indirizzo found = this.findById(id);
+        indirizzoRepository.delete(found);
     }
 }

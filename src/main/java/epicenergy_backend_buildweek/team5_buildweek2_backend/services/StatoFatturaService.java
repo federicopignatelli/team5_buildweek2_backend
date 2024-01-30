@@ -1,35 +1,32 @@
 package epicenergy_backend_buildweek.team5_buildweek2_backend.services;
 
 import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.Cliente;
+import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.StatoFattura;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.exceptions.NotFoundException;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.repositories.ClienteRepository;
+import epicenergy_backend_buildweek.team5_buildweek2_backend.repositories.StatoFatturaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
-
-@Service
-public class ClienteService {
+public class StatoFatturaService {
     @Autowired
-    private ClienteRepository clienteRepository;
-    public Page<Cliente> findAll(int pageNumber, int size, String orderBy){
+    private StatoFatturaRepository statoFatturaRepository;
+    public Page<StatoFattura> findAll(int pageNumber, int size, String orderBy){
         if(size>100) size = 100;
         Pageable pageable = PageRequest.of(pageNumber,size, Sort.by(orderBy));
-        return this.clienteRepository.findAll(pageable);
+        return this.statoFatturaRepository.findAll(pageable);
     }
-    public Cliente findByPartitaIva(UUID pi){
-        return this.clienteRepository.findById(pi).orElseThrow(()->new NotFoundException(pi));
+    public StatoFattura findByStato(String stato){
+        return this.statoFatturaRepository.findById(stato).orElseThrow(()->new NotFoundException(stato));
     }
 
-    public void findByPartitaIvaAndDelete(UUID pi) {
-        Cliente found = this.findByPartitaIva(pi);
-        clienteRepository.delete(found);
+    public void findByStatoAndDelete(String stato) {
+        StatoFattura found = this.findByStato(stato);
+        statoFatturaRepository.delete(found);
     }
-    //public create
-    //meteo create/save cliente da fare
 }
