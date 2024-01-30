@@ -58,66 +58,16 @@ public class PopulateData {
 
                         Provincia provincia = new Provincia();
                         provincia.setSigla(line[0]);
-                        provincia.setProvincia(line[1]);
+                        provincia.setProvincia(line[1].replace("-", " "));
                         provincia.setRegine(line[2]);
                         provinciaRepository.save(provincia);
                     }
                     // save comuni
                     else if (line.length == 4) {
-                        // checks whether if there are multiple provinces starts with the same name
-                        // Because CSV relations are not well-defined
-                        List<Provincia> provinciaList = provinciaRepository.findByLikeProvincia(line[3]);
 
-                        // if list is empty let's try to use another query method
+                        // handle these bad typed data
 
-
-                        if(provinciaList.isEmpty()) {
-                            System.out.println("I passed here!");
-                            provinciaList = provinciaRepository.findByFirstFourLetters(line[3]);
-                            System.out.println("This is handled reagions: " + provinciaList);
-                        }
-
-
-                        // if we find multiple provinces
-                        if(provinciaList.size() > 1) {
-                            System.out.println("this is list: " + provinciaList + " check this: " + line[3]);
-
-                            // throw exception if necessary
-                        }
-
-                        // saves comune without any problem
-
-                        if(!provinciaList.isEmpty()) {
-                            Comune comune = new Comune();
-                            comune.setCodiceProvincia(Integer.parseInt(line[0]));
-                            comune.setProvincia(provinciaList.get(0));
-                            try {
-                                comune.setProgressiviDelComune(Integer.parseInt(line[1]));
-                            } catch (NumberFormatException ex) {
-                                comune.setProgressiviDelComune(progressivi_di_comune);
-                                System.out.println(comune.getProgressiviDelComune() + " comune: " + comune.getCodiceProvincia() + progressivi_di_comune);
-                                progressivi_di_comune++;
-                            }
-
-
-                            comune.setDenominazioneInItaliano(line[2]);
-                            comuneRepository.save(comune);
-                        } else {
-                            System.out.println("found out of rule " + line[3] + " lenght: " + line.length);
-                        }
-//                        System.out.println("codice provincia: " + line[0] + " progressivo del comune: " + line[1] + " denominazione in Italia " + line[2] + " provincia " + line[3]);
-                    } else {
-                        // throw exception
-                        System.out.println("out of request");
-                    }
-                }
-            }
-        }
-    }
-
-}
-
-                    /*
+                        /*
                         line[3]                             | provincia | regione(region isn't unique)
                         ------------------------------------------------------------
                         Verbano-Cusio-Ossola                | Verbania | Piemonte
@@ -132,3 +82,72 @@ public class PopulateData {
                         Reggio Calabria                     | Reggio-Calabria | Calabria
                         Vibo Valentia                       | Vibo-Valentia | Calabria
                         */
+
+                        String provincia = line[3].replace("-", " ");
+                        if(provincia.equals("Pesaro e Urbino")) {
+                            provincia = "Pesaro Urbino";
+                        } else if (provincia.equals("Forlì Cesena")) {
+                            provincia = "Forli Cesena";
+                        } else if (provincia.equals("Reggio nell'Emilia")) {
+                            provincia = "Reggio Emilia";
+                        } else if (provincia.equals("Bolzano/Bozen")) {
+                            provincia = "Bolzano";
+                        } else if(provincia.equals("Monza e della Brianza")) {
+                            provincia = "Monza Brianza";
+                        } else if(provincia.equals("Valle d'Aosta/Vallée d'Aoste")) {
+                            provincia = "Aosta";
+                        } else if (provincia.equals("Verbano Cusio Ossola")) {
+                            provincia = "Verbania";
+                        }
+
+                        // checks whether if there are multiple provinces starts with the same name
+                        // Because CSV relations are not well-defined
+                        List<Provincia> provinciaList = provinciaRepository.findByLikeProvincia(provincia);
+
+                        // if list is empty let's try to use another query method
+                        if(provinciaList.isEmpty()) {
+                            System.out.println("I passed here!");
+                            provinciaList = provinciaRepository.findByFirstFourLetters(provincia);
+                            System.out.println("This is handled reagions: " + provinciaList);
+
+                        }
+
+
+                        // if we find multiple provinces
+                        if(provinciaList.size() > 1) {
+                            System.out.println("this is list: " + provinciaList + " check this: " + provincia);
+
+                            // throw exception if necessary
+                        }
+
+                        // saves comune without any problem
+
+                        if(!provinciaList.isEmpty()) {
+                            Comune comune = new Comune();
+                            comune.setCodiceProvincia(Integer.parseInt(line[0]));
+                            comune.setProvincia(provinciaList.get(0));
+                            try {
+                                comune.setProgressiviDelComune(Integer.parseInt(line[1]));
+                            } catch (NumberFormatException ex) {
+                                comune.setProgressiviDelComune(progressivi_di_comune);
+                                // System.out.println(comune.getProgressiviDelComune() + " comune: " + comune.getCodiceProvincia() + progressivi_di_comune);
+                                progressivi_di_comune++;
+                            }
+
+                            comune.setDenominazioneInItaliano(line[2]);
+                            comuneRepository.save(comune);
+                        } else {
+                            System.out.println("found out of rule " + provincia + " lenght: " + line.length);
+                        }
+//                        System.out.println("codice provincia: " + line[0] + " progressivo del comune: " + line[1] + " denominazione in Italia " + line[2] + " provincia " + line[3]);
+                    } else {
+                        // throw exception if necessary
+                        System.out.println("out of request");
+                    }
+                }
+            }
+        }
+    }
+
+}
+
