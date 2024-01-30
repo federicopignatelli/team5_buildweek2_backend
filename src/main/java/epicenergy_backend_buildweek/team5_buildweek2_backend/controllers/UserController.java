@@ -6,7 +6,9 @@ import epicenergy_backend_buildweek.team5_buildweek2_backend.services.UserServic
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
@@ -38,6 +40,12 @@ public class UserController {
 //    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void getUserByIdAndDelete(@PathVariable UUID userId) {
         userService.findByIdAndDelete(userId);
+    }
+
+    //endpoint immagini
+    @PostMapping("/{userId}upload")
+    public String uploadAvatar(@RequestParam("avatar") MultipartFile file, @PathVariable UUID userId) throws IOException {
+        return userService.uploadAvatar(file);
     }
 
 }
