@@ -20,7 +20,7 @@ public record NewClienteDTOIndirizzoCompleto(
         @Size(min = 5, max = 5, message = "Il CAP deve avere esattamente 5 caratteri")
         @Pattern(regexp = "\\d{5}", message = "Il CAP deve essere composto da 5 caratteri numerici")
         String CAP,
-        String comune
+        Long idcomune
 
 ) {
 }
