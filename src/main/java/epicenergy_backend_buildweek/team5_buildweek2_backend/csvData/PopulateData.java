@@ -8,7 +8,6 @@ import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.Comune;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.Provincia;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.repositories.ComuneRepository;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.repositories.ProvinciaRepository;
-import epicenergy_backend_buildweek.team5_buildweek2_backend.services.ProvinciaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +18,6 @@ import java.util.List;
 
 @Component
 public class PopulateData {
-    private String filePath = "./comuni-italiani.csv";
 
     @Autowired
     private ProvinciaRepository provinciaRepository;
@@ -28,7 +26,8 @@ public class PopulateData {
     private ComuneRepository comuneRepository;
 
     public void readAllLines(Path filePath) throws Exception {
-
+    // we have to check if the database is empty before running the code
+    // handle accurate exceptions
 
         try (Reader reader = Files.newBufferedReader(filePath)) {
 
@@ -54,8 +53,8 @@ public class PopulateData {
                     }
                     // save comuni
                     else if (line.length == 4) {
-                        // checkes wheather if there are multiple provices starts with same name
-                        // Becase CSV relations are not well-defined
+                        // checks whether if there are multiple provinces starts with the same name
+                        // Because CSV relations are not well-defined
                         List<Provincia> provinciaList = provinciaRepository.findByFirstFourLetters(line[3]);
                         System.out.println("this is list: " + provinciaList + " check this: " + line[3]);
                         if(!provinciaList.isEmpty()) {
