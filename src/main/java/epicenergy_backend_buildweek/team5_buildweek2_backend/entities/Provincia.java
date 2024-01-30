@@ -1,5 +1,6 @@
 package epicenergy_backend_buildweek.team5_buildweek2_backend.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -19,6 +20,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties({"comuneList"})
 public class Provincia {
     @Id
     private String sigla;

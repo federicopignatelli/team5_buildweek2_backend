@@ -11,6 +11,9 @@ import java.util.Optional;
 
 @Repository
 public interface ProvinciaRepository extends JpaRepository<Provincia, String> {
+
+    Provincia findByProvincia(String provincia);
+
     @Query("SELECT p FROM Provincia p WHERE p.provincia LIKE CONCAT('%', :provincia, '%')")
     List<Provincia> findByLikeProvincia(@Param("provincia") String provincia);
 
