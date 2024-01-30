@@ -1,10 +1,14 @@
 package epicenergy_backend_buildweek.team5_buildweek2_backend.controllers;
 
 
+import epicenergy_backend_buildweek.team5_buildweek2_backend.config.MailgunSender;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.User;
+import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.users.NewUserDTO;
+import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.users.NewUserResponseDTO;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,6 +22,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private MailgunSender mailgunSender;
 
     @GetMapping
     public List<User> getUsers(){
@@ -33,6 +40,13 @@ public class UserController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public User getUserByIdAndUpdate(@PathVariable UUID userId, @RequestBody User modifiedUserPayload) {
         return userService.findByIdAndUpdate(userId, modifiedUserPayload);
+    }
+
+    @PostMapping
+    public NewUserResponseDTO createUser(@RequestBody @Validated NewUserDTO newUserPayload){
+         User newUser = userService.save(newUserPayload);
+         mailgunSender.sendRegistrationEmail(newUser.getEmail());
+         return new NewUserResponseDTO(newUser.getId());
     }
 
     @DeleteMapping("/{userId}")
