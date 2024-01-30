@@ -4,7 +4,6 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-
 public record NewClienteDTOIndirizzoCompleto(
         @NotEmpty(message = "Ragione sociale è un campo obbligatorio")
         @Size(min = 3,message = "Minimo 3 caratteri per la ragione sociale")
