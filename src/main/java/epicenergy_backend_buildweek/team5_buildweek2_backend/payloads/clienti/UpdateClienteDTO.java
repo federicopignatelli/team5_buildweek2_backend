@@ -1,4 +1,4 @@
-package epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.cliente;
+package epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.clienti;
 
 import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.Indirizzo;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.enums.TipoAzienda;
