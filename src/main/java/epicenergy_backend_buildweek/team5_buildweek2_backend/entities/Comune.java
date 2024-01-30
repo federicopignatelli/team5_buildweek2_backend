@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
+@Table(name = "comuni")
 @Getter
 @Setter
 @AllArgsConstructor

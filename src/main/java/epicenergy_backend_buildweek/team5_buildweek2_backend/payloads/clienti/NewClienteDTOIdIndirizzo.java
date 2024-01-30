@@ -1,4 +1,5 @@
-package epicenergy_backend_buildweek.team5_buildweek2_backend.payloads;
+package epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.clienti;
+
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
