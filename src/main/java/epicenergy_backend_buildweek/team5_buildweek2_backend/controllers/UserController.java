@@ -7,6 +7,7 @@ import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.users.NewU
 import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.users.NewUserResponseDTO;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -51,7 +52,7 @@ public class UserController {
 
     @DeleteMapping("/{userId}")
     @PreAuthorize("hasAuthority('ADMIN')")
-//    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void getUserByIdAndDelete(@PathVariable UUID userId) {
         userService.findByIdAndDelete(userId);
     }
