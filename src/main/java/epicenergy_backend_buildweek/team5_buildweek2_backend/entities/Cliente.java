@@ -46,4 +46,6 @@ public class Cliente {
         this.emailAziendale = emailAziendale;
         this.indirizzoSedeOperativa = indirizzoSedeOperativa;
     }
+
+
 }
