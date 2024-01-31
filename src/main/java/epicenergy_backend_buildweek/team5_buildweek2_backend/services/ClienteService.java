@@ -76,5 +76,8 @@ public class ClienteService {
         clientefound.setIndirizzoSedeOperativa(newIndirizzo);
         return this.clienteRepository.save(clientefound);
     }
+    public Cliente findByRagioneSociale(String ragioneSociale){
+        return clienteRepository.findByRagioneSociale(ragioneSociale);
+    }
 
 }

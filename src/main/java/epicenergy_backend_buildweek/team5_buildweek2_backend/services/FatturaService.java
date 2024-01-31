@@ -2,6 +2,7 @@ package epicenergy_backend_buildweek.team5_buildweek2_backend.services;
 
 import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.Cliente;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.Fattura;
+import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.StatoFattura;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.exceptions.NotFoundException;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.fatture.NewFatturaDTO;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.fatture.FatturaResponseDTO;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,6 +23,8 @@ public class FatturaService {
     private FatturaRepository fatturaRepository;
     @Autowired
     private ClienteService clienteService;
+    @Autowired
+    private StatoFatturaService statoFatturaService;
     private FatturaResponseDTO convertToDTO(Fattura fattura){
         return new FatturaResponseDTO(fattura.getNumero(),fattura.getDataEmissione(),
                 fattura.getImporto(), fattura.getCliente().getPartitaIva(),
@@ -60,23 +64,41 @@ public class FatturaService {
         fatturaRepository.delete(found);
     }
 
+    public List<Fattura> getFattureByDate(LocalDate date) {
+        if(date == null) date = LocalDate.now();
+        return fatturaRepository.findByDataEmissione(date);
+    }
+    public List<Fattura> getFattureByRangeOfDates(LocalDate startDate, LocalDate endDate){
+        if(startDate == null) startDate = LocalDate.of(2000,1,1);
+        if(endDate == null) endDate = LocalDate.now();
+        return this.fatturaRepository.findByRangeDiDate(startDate,endDate);
+    }
+    public List<Fattura> getFattureByYear(int year){
+        return this.fatturaRepository.findByYearOfIssue(year);
+    }
 
-//    public List<Fattura> getFattureByAnno(int year) {
-//        LocalDate startDate = LocalDate.of(year, 1, 1);
-//        LocalDate endDate = LocalDate.of(year, 12, 31);
-//        return fatturaRepository.findByDataEmissioneAnno(startDate, endDate);
-//    }
-//
-//    public List<Fattura> getFattureByDate(LocalDate date) {
-//        return fatturaRepository.findByDataEmissione(date);
-//    }
-//
-//    public List<Fattura> getFattureByRangeImporti(double minImporto, double maxImporto) {
-//        return fatturaRepository.findByRangeImporti(minImporto, maxImporto);
-//    }
+    public List<Fattura> getFattureByRangeImporti(double minImporto, double maxImporto) {
+        if (maxImporto == 0){
+            if (minImporto == 0){
+                return fatturaRepository.findAll();
+            } else {
+                return fatturaRepository.findByImportoBiggerThan(minImporto);
+            }
+        }
+        return fatturaRepository.findByRangeImporti(minImporto, maxImporto);
+    }
 
-    /*public List<Fattura> getFattureByCliente(Long clienteId) {
-      return fatturaRepository.findByClienteId(clienteId);
-    }*/
+    public List<Fattura> getFattureByPartitaIvaCliente(UUID pi) {
+        Cliente found = this.clienteService.findByPartitaIva(pi);
+        return this.fatturaRepository.findByCliente(found);
+    }
+    public List<Fattura> getFattureByRagioneSocialCliente(String rs){
+        Cliente found = this.clienteService.findByRagioneSociale(rs);
+        return this.fatturaRepository.findByCliente(found);
+    }
+    public List<Fattura> getFattureByStato(String stato){
+        StatoFattura statoFattura = this.statoFatturaService.findByStato(stato);
+        return this.fatturaRepository.findByStato(statoFattura);
+    }
 }
 

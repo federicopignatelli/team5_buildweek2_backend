@@ -10,7 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/fatture")
@@ -18,9 +20,9 @@ public class FattureController {
     @Autowired
     private FatturaService fatturaService;
     @GetMapping
-    public Page<FatturaResponseDTO> findAll(@RequestParam int pageNumber,
-                                            @RequestParam int size,
-                                            @RequestParam String orderBy){
+    public Page<FatturaResponseDTO> findAll(@RequestParam(defaultValue = "0") int pageNumber,
+                                            @RequestParam(defaultValue = "10") int size,
+                                            @RequestParam(defaultValue = "numero") String orderBy){
         return this.fatturaService.findAll(pageNumber, size, orderBy);
     }
     @GetMapping("/{numeroFattura}")
@@ -40,23 +42,37 @@ public class FattureController {
         this.fatturaService.findByNumeroAndDelete(numeroFattura);
     }
 
+    @GetMapping("/byDate")
+    public List<Fattura> getFattureByDate(@RequestParam LocalDate date){
+            return this.fatturaService.getFattureByDate(date);
+    }
+    @GetMapping("/byRangeOfDates")
+    public List<Fattura> getFattureByRangeOfDates(@RequestParam LocalDate startDate,
+                                                  @RequestParam LocalDate endDate){
+        return this.fatturaService.getFattureByRangeOfDates(startDate, endDate);
+    }
+    @GetMapping("/byYear")
+    public List<Fattura> getFattureByYear(@RequestParam int year){
+        return this.fatturaService.getFattureByYear(year);
+    }
 
     @GetMapping("/fattureRangeImporti")
     public List<Fattura> getFattureByRangeImporti(
-            @RequestParam("minImporto") double minImporto,
-            @RequestParam(value = "maxImporto", required = false) double maxImporto) {
-//    @GetMapping("/fattureRangeImporti")
-//    public List<Fattura> getFattureByRangeImporti(
-//            @RequestParam("minImporto") double minImporto,
-//            @RequestParam("maxImporto") double maxImporto) {
-//
-        List<Fattura> fattureFiltratePerImporto = fatturaService.getFattureByRangeImporti(minImporto, maxImporto);
-        return fattureFiltratePerImporto;
+            @RequestParam double minImporto,
+            @RequestParam double maxImporto) {
+        return this.fatturaService.getFattureByRangeImporti(minImporto,maxImporto);
  }
 
-//   @GetMapping("/fattureClienteId")
-//    public List<Fattura> getFattureByCliente(@RequestParam("clienteId") Long clienteId) {
-//        List<Fattura> fattureFiltratePerCliente = fatturaService.getFattureByCliente(clienteId);
-//        return fattureFiltratePerCliente;
-//    }
+    @GetMapping("/fatturePIcliente")
+    public List<Fattura> getFattureByPICliente(@RequestParam UUID piCliente) {
+        return fatturaService.getFattureByPartitaIvaCliente(piCliente);
+    }
+    @GetMapping("/byRagioneSociale")
+    public List<Fattura> getFattureByRSCliente(@RequestParam String ragioneSocialeCliente){
+        return fatturaService.getFattureByRagioneSocialCliente(ragioneSocialeCliente);
+    }
+    @GetMapping("/byStato")
+    public List<Fattura> getFattureByStato(@RequestParam String stato){
+        return this.fatturaService.getFattureByStato(stato);
+    }
 }
