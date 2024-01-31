@@ -42,16 +42,17 @@ public class IndirizzoController {
 
     @GetMapping("/{indirizzoId}")
     public Indirizzo findById(@PathVariable int indirizzoId) {
-        return IndirizzoService.findById(indirizzoId);
+        return indirizzoService.findById(indirizzoId);
     }
 
-   /* @PutMapping("/{indirizzoId}")
+   @PutMapping("/{indirizzoId}")
     public Indirizzo findAndUpdate(@PathVariable int indirizzoId, @RequestBody Indirizzo body) {
         return indirizzoService.findByIdAndUpdate(indirizzoId, body);
-    }*/
+    }
 
     @DeleteMapping("/{indirizzoId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void findAndDelete(@PathVariable int authorId) {IndirizzoService.findByIdAndDelete(authorId);
+    public void findAndDelete(@PathVariable int indirizzoId) {
+        indirizzoService.findByIdAndDelete(indirizzoId);
     }
 }

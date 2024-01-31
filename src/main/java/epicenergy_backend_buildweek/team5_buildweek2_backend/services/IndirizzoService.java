@@ -37,11 +37,11 @@ public class IndirizzoService {
         return indirizzoRepository.findAll(pageable);
     }
 
-    public static Indirizzo findById(long id) {
+    public Indirizzo findById(long id) {
         return indirizzoRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
     }
 
-    public static void findByIdAndDelete(long id) {
+    public void findByIdAndDelete(long id) {
         Indirizzo found = findById(id);
         indirizzoRepository.delete(found);
     }
@@ -65,15 +65,16 @@ public class IndirizzoService {
         Pageable pageable = PageRequest.of(page, size, Sort.by(sort));
         return indirizzoRepository.findAll(pageable);
     }
-}
 
-   /* public Indirizzo findByIdAndUpdate(long id, Indirizzo body) {
+
+   public Indirizzo findByIdAndUpdate(long id, Indirizzo body) {
 
         Indirizzo found = findById(id);
         found.setVia(body.getVia());
         found.setCivico(body.getCivico());
         found.setLocalità(body.getLocalità());
         found.setComune(body.getComune());
-        return IndirizzoRepository.save(found);
-    }*/
+        return indirizzoRepository.save(found);
+    }
 
+}
