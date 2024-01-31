@@ -1,6 +1,7 @@
 package epicenergy_backend_buildweek.team5_buildweek2_backend.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -34,7 +35,6 @@ public class SecurityConfig {
 		httpSecurity.cors(Customizer.withDefaults());
 
 		httpSecurity.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-
 		httpSecurity.authorizeHttpRequests(request -> request.requestMatchers("/**").permitAll());
 
 		return httpSecurity.build();

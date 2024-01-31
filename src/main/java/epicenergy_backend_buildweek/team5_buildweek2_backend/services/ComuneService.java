@@ -25,7 +25,7 @@ public class ComuneService {
     @Autowired
     private ProvinciaRepository provinciaRepository;
 
-    public Page<Comune> findAll(int pageNumber, int size, String orderBy){
+    public Page<Comune> getComuni(int pageNumber, int size, String orderBy){
         if(size>100) size = 100;
         Pageable pageable = PageRequest.of(pageNumber,size, Sort.by(orderBy));
         return this.comuneRepository.findAll(pageable);
@@ -35,18 +35,18 @@ public class ComuneService {
     }
 
 
-    public List<Comune> findByProvincia(String provincia) {
-        Provincia p = provinciaRepository.findByProvincia(provincia);
-        return p.getComuneList();
-    }
+//    public List<Comune> findByProvincia(String provincia) {
+//        Provincia p = provinciaRepository.findByProvincia(provincia);
+//        return p.getComuneList();
+//    }
+//
+//    public List<Comune> findByProvincia(String provincia) {
+//        Provincia p = provinciaRepository.findByProvincia(provincia);
+//        return p.getComuneList();
+//    }
 
-    public List<Comune> findByProvincia(String provincia) {
-        Provincia p = provinciaRepository.findByProvincia(provincia);
-        return p.getComuneList();
-    }
-
-    public void findByIdAndDelete(long id) {
-        Comune found = this.findById(id);
-        comuneRepository.delete(found);
-    }
+//    public void findByIdAndDelete(long id) {
+//        Comune found = this.findById(id);
+//        comuneRepository.delete(found);
+//    }
 }

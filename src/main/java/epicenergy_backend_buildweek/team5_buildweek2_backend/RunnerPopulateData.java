@@ -37,8 +37,8 @@ public class RunnerPopulateData implements CommandLineRunner {
 //        populateData.readAllLines(pathProvince);
 //        populateData.readAllLines(pathComuni);
 
-        List<Comune> comuni = comuneService.findByProvincia("Torino");
-        comuni.forEach(System.out::println);
+//        List<Comune> comuni = comuneService.findByProvincia("Torino");
+//        comuni.forEach(System.out::println);
 
 
     }

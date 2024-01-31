@@ -20,4 +20,3 @@ public interface ComuneRepository extends JpaRepository<Comune,Long> {
     @Override
     List<Comune> findAll();
 }
-str
