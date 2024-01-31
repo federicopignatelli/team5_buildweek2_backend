@@ -61,22 +61,22 @@ public class FatturaService {
     }
 
 
-    public List<Fattura> getFattureByAnno(int year) {
-        LocalDate startDate = LocalDate.of(year, 1, 1);
-        LocalDate endDate = LocalDate.of(year, 12, 31);
-        return fatturaRepository.findByDataEmissioneAnno(startDate, endDate);
-    }
+//    public List<Fattura> getFattureByAnno(int year) {
+//        LocalDate startDate = LocalDate.of(year, 1, 1);
+//        LocalDate endDate = LocalDate.of(year, 12, 31);
+//        return fatturaRepository.findByDataEmissioneAnno(startDate, endDate);
+//    }
+//
+//    public List<Fattura> getFattureByDate(LocalDate date) {
+//        return fatturaRepository.findByDataEmissione(date);
+//    }
+//
+//    public List<Fattura> getFattureByRangeImporti(double minImporto, double maxImporto) {
+//        return fatturaRepository.findByRangeImporti(minImporto, maxImporto);
+//    }
 
-    public List<Fattura> getFattureByDate(LocalDate date) {
-        return fatturaRepository.findByDataEmissione(date);
-    }
-
-    public List<Fattura> getFattureByRangeImporti(double minImporto, double maxImporto) {
-        return fatturaRepository.findByRangeImporti(minImporto, maxImporto);
-    }
-
-    public List<Fattura> getFattureByCliente(Long clienteId) {
+    /*public List<Fattura> getFattureByCliente(Long clienteId) {
       return fatturaRepository.findByClienteId(clienteId);
-    }
+    }*/
 }
 
