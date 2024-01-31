@@ -57,7 +57,7 @@ public class ClientiController {
         return clienteService.findByPartitaIvaAndUpdateIndirizzoSedeLegale(body, id);
     }
 
-    @PutMapping("/UpdateIndirizzoSedeLegale/{id}")
+    @PutMapping("/UpdateIndirizzoSedeOperativa/{id}")
     public Cliente findByPartitaIvaAndUpdateIndirizzoSedeOperativa(@PathVariable UUID id, @RequestBody NewIndirizzoDTO body) {
         return clienteService.findByPartitaIvaAndUpdateIndirizzoSedeOperativa(body, id);
     }
