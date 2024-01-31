@@ -43,7 +43,7 @@ public class FattureController {
     @GetMapping("/fattureRangeImporti")
     public List<Fattura> getFattureByRangeImporti(
             @RequestParam("minImporto") double minImporto,
-            @RequestParam("maxImporto") double maxImporto) {
+            @RequestParam(value = "maxImporto", required = false) double maxImporto) {
 
         List<Fattura> fattureFiltratePerImporto = fatturaService.getFattureByRangeImporti(minImporto, maxImporto);
         return fattureFiltratePerImporto;
