@@ -4,6 +4,7 @@ import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.Cliente;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.exceptions.BadRequestException;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.clienti.NewClienteDTOIdIndirizzo;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.clienti.NewClienteDTOIdIndirizzoResponse;
+import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.clienti.UpdateClienteDTO;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -29,6 +30,7 @@ public class ClientiController {
             throw new BadRequestException(validation.getAllErrors().toString());
         }
         Cliente newCliente = clienteService.save(body);
+        //inserire nella response anche l'id dell'indirizzo
         return new NewClienteDTOIdIndirizzoResponse(newCliente.getRagioneSociale(), newCliente.getEmailAziendale());
     }
 
@@ -44,8 +46,8 @@ public class ClientiController {
         return clienteService.findByPartitaIva(idpartitaiva);
     }
 
-//    @PutMapping("/{UUID id}")
-//    public Cliente findByPartitaIvaAndUpdate(@PathVariable UUID id, @RequestBody Cliente body) {
-//        return clienteService.findByPartitaIvaAndUpdate(id, body);
-//    }
+    @PutMapping("/{UUID id}")
+    public Cliente findByPartitaIvaAndUpdate(@PathVariable UUID id, @RequestBody UpdateClienteDTO body) {
+        return clienteService.findByPartitaIvaAndUpdate(body, id);
+    }
 }
