@@ -5,6 +5,7 @@ import epicenergy_backend_buildweek.team5_buildweek2_backend.exceptions.BadReque
 import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.clienti.NewClienteDTOIdIndirizzo;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.clienti.NewClienteDTOIdIndirizzoResponse;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.clienti.UpdateClienteDTO;
+import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.indirizzo.NewIndirizzoDTO;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -41,13 +42,25 @@ public class ClientiController {
         return clienteService.findAll(page, size, sortBy);
     }
 
-    @GetMapping("/{UUID idpartitaiva}")
-    public Cliente findByPartitaIva(@PathVariable UUID idpartitaiva) {
-        return clienteService.findByPartitaIva(idpartitaiva);
+    @GetMapping("/{id}")
+    public Cliente findByPartitaIva(@PathVariable UUID id){
+        return clienteService.findByPartitaIva(id);
     }
 
-    @PutMapping("/{UUID id}")
+    @PutMapping("/{id}")
     public Cliente findByPartitaIvaAndUpdate(@PathVariable UUID id, @RequestBody UpdateClienteDTO body) {
         return clienteService.findByPartitaIvaAndUpdate(body, id);
     }
+
+    @PutMapping("/UpdateIndirizzoSedeLegale/{id}")
+    public Cliente findByPartitaIvaAndUpdateIndirizzoSedeLegale(@PathVariable UUID id, @RequestBody NewIndirizzoDTO body) {
+        return clienteService.findByPartitaIvaAndUpdateIndirizzoSedeLegale(body, id);
+    }
+
+    @PutMapping("/UpdateIndirizzoSedeLegale/{id}")
+    public Cliente findByPartitaIvaAndUpdateIndirizzoSedeOperativa(@PathVariable UUID id, @RequestBody NewIndirizzoDTO body) {
+        return clienteService.findByPartitaIvaAndUpdateIndirizzoSedeOperativa(body, id);
+    }
+
+
 }
