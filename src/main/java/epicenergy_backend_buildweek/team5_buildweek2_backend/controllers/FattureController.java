@@ -40,18 +40,23 @@ public class FattureController {
         this.fatturaService.findByNumeroAndDelete(numeroFattura);
     }
 
+
     @GetMapping("/fattureRangeImporti")
     public List<Fattura> getFattureByRangeImporti(
             @RequestParam("minImporto") double minImporto,
             @RequestParam(value = "maxImporto", required = false) double maxImporto) {
-
+//    @GetMapping("/fattureRangeImporti")
+//    public List<Fattura> getFattureByRangeImporti(
+//            @RequestParam("minImporto") double minImporto,
+//            @RequestParam("maxImporto") double maxImporto) {
+//
         List<Fattura> fattureFiltratePerImporto = fatturaService.getFattureByRangeImporti(minImporto, maxImporto);
         return fattureFiltratePerImporto;
-    }
+ }
 
-    @GetMapping("/fattureClienteId")
-    public List<Fattura> getFattureByCliente(@RequestParam("clienteId") Long clienteId) {
-        List<Fattura> fattureFiltratePerCliente = fatturaService.getFattureByCliente(clienteId);
-        return fattureFiltratePerCliente;
-    }
+//   @GetMapping("/fattureClienteId")
+//    public List<Fattura> getFattureByCliente(@RequestParam("clienteId") Long clienteId) {
+//        List<Fattura> fattureFiltratePerCliente = fatturaService.getFattureByCliente(clienteId);
+//        return fattureFiltratePerCliente;
+//    }
 }
