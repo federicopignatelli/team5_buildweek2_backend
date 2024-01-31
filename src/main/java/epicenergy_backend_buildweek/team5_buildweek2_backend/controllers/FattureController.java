@@ -1,5 +1,6 @@
 package epicenergy_backend_buildweek.team5_buildweek2_backend.controllers;
 
+import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.Fattura;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.fatture.FatturaResponseDTO;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.fatture.NewFatturaDTO;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.services.FatturaService;
@@ -7,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/fatture")
@@ -32,5 +35,20 @@ public class FattureController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteByNumber(@PathVariable long numeroFattura){
         this.fatturaService.findByNumeroAndDelete(numeroFattura);
+    }
+
+    @GetMapping("/fattureRangeImporti")
+    public List<Fattura> getFattureByRangeImporti(
+            @RequestParam("minImporto") double minImporto,
+            @RequestParam("maxImporto") double maxImporto) {
+
+        List<Fattura> fattureFiltratePerImporto = fatturaService.getFattureByRangeImporti(minImporto, maxImporto);
+        return fattureFiltratePerImporto;
+    }
+
+    @GetMapping("/fattureClienteId")
+    public List<Fattura> getFattureByCliente(@RequestParam("clienteId") Long clienteId) {
+        List<Fattura> fattureFiltratePerCliente = fatturaService.getFattureByCliente(clienteId);
+        return fattureFiltratePerCliente;
     }
 }

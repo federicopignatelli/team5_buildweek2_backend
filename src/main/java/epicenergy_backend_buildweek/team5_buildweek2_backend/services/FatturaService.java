@@ -9,6 +9,7 @@ import epicenergy_backend_buildweek.team5_buildweek2_backend.repositories.Fattur
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -56,4 +57,24 @@ public class FatturaService {
         Fattura found = this.findById(numero);
         fatturaRepository.delete(found);
     }
+
+
+    public List<Fattura> getFattureByAnno(int year) {
+        LocalDate startDate = LocalDate.of(year, 1, 1);
+        LocalDate endDate = LocalDate.of(year, 12, 31);
+        return fatturaRepository.findByDataEmissioneAnno(startDate, endDate);
+    }
+
+    public List<Fattura> getFattureByDate(LocalDate date) {
+        return fatturaRepository.findByDataEmissione(date);
+    }
+
+    public List<Fattura> getFattureByRangeImporti(double minImporto, double maxImporto) {
+        return fatturaRepository.findByRangeImporti(minImporto, maxImporto);
+    }
+
+    public List<Fattura> getFattureByCliente(Long clienteId) {
+      return fatturaRepository.findByClienteId(clienteId);
+    }
 }
+
