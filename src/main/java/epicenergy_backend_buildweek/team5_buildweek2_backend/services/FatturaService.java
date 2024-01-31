@@ -8,12 +8,14 @@ import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.fatture.Fa
 import epicenergy_backend_buildweek.team5_buildweek2_backend.repositories.FatturaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class FatturaService {
     @Autowired
     private FatturaRepository fatturaRepository;
