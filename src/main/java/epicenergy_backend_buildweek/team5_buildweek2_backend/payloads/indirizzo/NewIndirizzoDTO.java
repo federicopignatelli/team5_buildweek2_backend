@@ -7,8 +7,7 @@ import jakarta.validation.constraints.Size;
 public record NewIndirizzoDTO(
         @NotEmpty
         String via,
-        @NotEmpty
-        int civico,
+        Integer civico,
         @NotEmpty
         String località,
         @NotEmpty

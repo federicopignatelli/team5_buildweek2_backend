@@ -49,9 +49,14 @@ public class AuthService {
         User newUser = new User();
         newUser.setSurname(body.surname());
         newUser.setName(body.name());
+        newUser.setUsername(body.username());
         newUser.setEmail(body.email());
         newUser.setPassword(bcrypt.encode(body.password()));
-        newUser.setRole(Role.USER);
+        if (body.role().equalsIgnoreCase("admin")){
+            newUser.setRole(Role.ADMIN);
+        }else{
+            newUser.setRole(Role.USER);
+        }
         return userDAO.save(newUser);
     }
 

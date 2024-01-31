@@ -77,9 +77,9 @@ public class FatturaService {
         return this.fatturaRepository.findByYearOfIssue(year);
     }
 
-    public List<Fattura> getFattureByRangeImporti(double minImporto, double maxImporto) {
-        if (maxImporto == 0){
-            if (minImporto == 0){
+    public List<Fattura> getFattureByRangeImporti(Double minImporto, Double maxImporto) {
+        if (maxImporto == null){
+            if (minImporto == null){
                 return fatturaRepository.findAll();
             } else {
                 return fatturaRepository.findByImportoBiggerThan(minImporto);

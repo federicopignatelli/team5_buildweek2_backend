@@ -24,7 +24,7 @@ import java.util.UUID;
 @Service
 public class IndirizzoService {
     @Autowired
-    private static IndirizzoRepository indirizzoRepository;
+    private IndirizzoRepository indirizzoRepository;
     @Autowired
     private ComuneService comuneService;
 

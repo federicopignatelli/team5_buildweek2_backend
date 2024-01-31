@@ -25,7 +25,7 @@ public class IndirizzoController {
     private IndirizzoService indirizzoService;
 
 
-    @PostMapping("")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public NewIndirizzoResponseDTO saveIndirizzo(@RequestBody @Validated NewIndirizzoDTO body, BindingResult validation) throws Exception {
         if (validation.hasErrors()) {
@@ -34,7 +34,7 @@ public class IndirizzoController {
         Indirizzo newIndirizzo = indirizzoService.save(body);
         return new NewIndirizzoResponseDTO(newIndirizzo.getId());
     }
-    @GetMapping("")
+    @GetMapping
     public Page<Indirizzo> getIndirizzi(@RequestParam(defaultValue = "0") int page,
                                    @RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "id") String sortBy) {
         return indirizzoService.getIndirizzi(page, size, sortBy);

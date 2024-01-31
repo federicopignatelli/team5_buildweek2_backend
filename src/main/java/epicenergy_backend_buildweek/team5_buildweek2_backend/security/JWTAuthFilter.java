@@ -64,7 +64,6 @@ public class JWTAuthFilter extends OncePerRequestFilter {
 
 		// later re-enable this
 		// bypasses "/comune endpoint
-		return pathMatcher.match("/auth/**", request.getServletPath()) ||
-				pathMatcher.match("/comune/**", request.getServletPath());
+		return pathMatcher.match("/auth/**", request.getServletPath());
 	}
 }

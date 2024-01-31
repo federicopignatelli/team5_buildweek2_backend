@@ -47,8 +47,8 @@ public class FattureController {
             return this.fatturaService.getFattureByDate(date);
     }
     @GetMapping("/byRangeOfDates")
-    public List<Fattura> getFattureByRangeOfDates(@RequestParam LocalDate startDate,
-                                                  @RequestParam LocalDate endDate){
+    public List<Fattura> getFattureByRangeOfDates(@RequestParam(required = false) LocalDate startDate,
+                                                  @RequestParam(required = false) LocalDate endDate){
         return this.fatturaService.getFattureByRangeOfDates(startDate, endDate);
     }
     @GetMapping("/byYear")
@@ -57,10 +57,18 @@ public class FattureController {
     }
 
     @GetMapping("/fattureRangeImporti")
-    public List<Fattura> getFattureByRangeImporti(
-            @RequestParam double minImporto,
-            @RequestParam double maxImporto) {
-        return this.fatturaService.getFattureByRangeImporti(minImporto,maxImporto);
+    public List<FatturaResponseDTO> getFattureByRangeImporti(
+            @RequestParam(required = false) Double minImporto,
+            @RequestParam(required = false) Double maxImporto) {
+        List<Fattura> listaDiFatture = this.fatturaService.getFattureByRangeImporti(minImporto,maxImporto);
+        List<FatturaResponseDTO> returnList = listaDiFatture.stream().map(fattura -> new FatturaResponseDTO(
+                fattura.getNumero(),
+                fattura.getDataEmissione(),
+                fattura.getImporto(),
+                fattura.getCliente().getPartitaIva(),
+                fattura.getCliente().getRagioneSociale()
+        )).toList();
+        return returnList;
  }
 
     @GetMapping("/fatturePIcliente")

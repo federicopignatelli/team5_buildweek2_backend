@@ -12,7 +12,6 @@ public record NewClienteDTOIdIndirizzo(
         @Email(message = "Inserisci un indirizzo e-mail valido")
         @NotEmpty(message = "Email aziendale è un campo obbligatorio")
         String emailAziendale,
-        @NotEmpty
         long idIndirizzo
 ) {
 }
