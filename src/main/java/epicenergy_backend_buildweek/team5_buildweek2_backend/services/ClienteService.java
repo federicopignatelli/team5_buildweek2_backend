@@ -3,6 +3,7 @@ package epicenergy_backend_buildweek.team5_buildweek2_backend.services;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.Cliente;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.Indirizzo;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.exceptions.NotFoundException;
+import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.clienti.NewClienteDTOIdIndirizzo;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.clienti.UpdateClienteDTO;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.indirizzo.NewIndirizzoDTO;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.repositories.ClienteRepository;
@@ -37,6 +38,18 @@ public class ClienteService {
     }
     //public create
     //meteo create/save cliente da fare
+
+    public Cliente save(NewClienteDTOIdIndirizzo body){
+        Indirizzo indirizzo = indirizzoService.findById(body.idIndirizzo());
+
+        Cliente newCliente = new Cliente();
+        newCliente.setRagioneSociale(body.ragioneSociale());
+        newCliente.setEmailAziendale(body.emailAziendale());
+        newCliente.setIndirizzoSedeOperativa(indirizzo);
+
+        return clienteRepository.save(newCliente);
+    }
+
 
     public Cliente findByPartitaIvaAndUpdate (UpdateClienteDTO body, UUID partitaIva){
 
