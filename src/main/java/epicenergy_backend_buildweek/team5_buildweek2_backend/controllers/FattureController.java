@@ -7,6 +7,7 @@ import epicenergy_backend_buildweek.team5_buildweek2_backend.services.FatturaSer
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,11 +29,13 @@ public class FattureController {
     }
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasAuthority('ADMIN')")
     public FatturaResponseDTO createNewBill(@RequestBody NewFatturaDTO body){
         return this.fatturaService.save(body);
     }
     @DeleteMapping("/{numeroFattura}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void deleteByNumber(@PathVariable long numeroFattura){
         this.fatturaService.findByNumeroAndDelete(numeroFattura);
     }
