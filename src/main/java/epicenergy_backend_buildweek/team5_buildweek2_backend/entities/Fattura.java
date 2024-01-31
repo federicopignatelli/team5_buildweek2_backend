@@ -21,6 +21,10 @@ public class Fattura {
     @Setter
     @Column(name = "importo (€)")
     private double importo;
+    @Setter
+    @OneToOne
+    @JoinColumn
+    private StatoFattura stato;
     @ManyToOne
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;

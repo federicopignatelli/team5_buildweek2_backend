@@ -1,5 +1,7 @@
 package epicenergy_backend_buildweek.team5_buildweek2_backend.services;
 
+import org.springframework.stereotype.Service;
+import java.util.List;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.Indirizzo;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.Provincia;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.exceptions.NotFoundException;
@@ -11,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+@Service
 public class ProvinciaService {
     @Autowired
     private ProvinciaRepository provinciaRepository;
