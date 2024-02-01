@@ -52,6 +52,8 @@ public class FatturaService {
     public FatturaResponseDTO save(NewFatturaDTO body){
         Cliente found = this.clienteService.findByPartitaIva(body.idCliente());
         Fattura nuovaFattura = new Fattura(body.importo(), found);
+        found.setDataUltimoContatto(LocalDate.now());
+        this.clienteService.updateDataUltimoContatto(body.idCliente(),LocalDate.now());
         fatturaRepository.save(nuovaFattura);
         return new FatturaResponseDTO(nuovaFattura.getNumero(),
                 nuovaFattura.getDataEmissione(),

@@ -58,7 +58,7 @@ public class UserController {
     }
 
     //endpoint immagini
-    @PostMapping("/{userId}upload")
+    @PostMapping("/{userId}/upload")
     public String uploadAvatar(@RequestParam("avatar") MultipartFile file, @PathVariable UUID userId) throws IOException {
         return userService.uploadAvatar(file);
     }

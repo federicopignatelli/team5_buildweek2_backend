@@ -13,13 +13,11 @@ public record UpdateClienteDTO(
         String emailAziendale,
         String pecAziendale,
         Long telefonoAziendale,
-      //  Indirizzo indirizzoSedeOperativa,
-      //  Indirizzo indirizzoSedeLegale,
+      //  Indirizzo indirizzoSedeOperativa, -> fatto
+      //  Indirizzo indirizzoSedeLegale, -> fatto
       //  String urlLogoAziendale,
-      //  TipoAzienda tipo,
         String tipo,
-      //  LocalDate dataInserimento,
-      //  LocalDate dataUltimoContatto,
+      //  LocalDate dataUltimoContatto, -> fatto
         Integer fatturatoAnnuale
 ) {
 }

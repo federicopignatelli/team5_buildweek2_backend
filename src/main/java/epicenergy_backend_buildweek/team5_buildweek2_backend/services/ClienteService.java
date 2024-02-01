@@ -1,5 +1,7 @@
 package epicenergy_backend_buildweek.team5_buildweek2_backend.services;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.Cliente;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.Comune;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.Fattura;
@@ -17,7 +19,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -31,6 +35,8 @@ public class ClienteService {
     private IndirizzoService indirizzoService;
     @Autowired
     private ComuneService comuneService;
+    @Autowired
+    private Cloudinary cloudinary;
     public Page<Cliente> findAll(int pageNumber, int size, String orderBy){
         if(size>100) size = 100;
         Pageable pageable = PageRequest.of(pageNumber,size, Sort.by(orderBy));
@@ -63,7 +69,11 @@ public class ClienteService {
         return clienteRepository.save(newCliente);
     }
 
-
+    public Cliente updateDataUltimoContatto(UUID piCliente, LocalDate dataUltimoContatto){
+        Cliente found = this.findByPartitaIva(piCliente);
+        found.setDataUltimoContatto(dataUltimoContatto);
+        return this.clienteRepository.save(found);
+    }
 
     public Cliente findByPartitaIvaAndUpdate (UpdateClienteDTO body, UUID partitaIva){
 
@@ -136,6 +146,12 @@ public class ClienteService {
 
     public List<Cliente> getClienteByPartRagioneSociale(String ragioneSociale) {
         return clienteRepository.findByPartRagioneSociale(ragioneSociale);
+    }
+    public String uploadLogoAziendale(MultipartFile file) throws IOException {
+        String url = (String) cloudinary.uploader()
+                .upload(file.getBytes(), ObjectUtils.emptyMap())
+                .get("url");
+        return url;
     }
 
 }
