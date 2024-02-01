@@ -16,11 +16,17 @@ public interface ClienteRepository extends JpaRepository<Cliente, UUID> {
 
     @Query("SELECT c FROM Cliente c WHERE c.fatturatoAnnuale = :fatturato")
     List<Cliente> findByFatturatoAnnuale(Integer fatturato);
+    @Query("SELECT c FROM Cliente c WHERE c.fatturatoAnnuale BETWEEN :minFatturato AND :maxFatturato")
+    List<Cliente> findByRangeImporti(int minFatturato, int maxFatturato);
+    @Query("SELECT c FROM Cliente c WHERE c.fatturatoAnnuale > :minFatturato")
+    List<Cliente> findByFatturatoBiggerThan(int minFatturato);
+    @Query("SELECT c FROM Cliente c WHERE c.fatturatoAnnuale < :maxFatturato")
+    List<Cliente> findByFatturatoLowerThan(int maxFatturato);
 
     List<Cliente> findByDataInserimento(LocalDate dataInserimento);
 
     List<Cliente> findByDataUltimoContatto(LocalDate dataInserimento);
 
-    @Query ("SELECT c FROM Cliente c WHERE LOWER(c.ragioneSociale) LIKE LOWER(:ragioneSociale)")
+    @Query ("SELECT c FROM Cliente c WHERE LOWER(c.ragioneSociale) LIKE CONCAT('%', LOWER(:ragioneSociale), '%')")
     List<Cliente> findByPartRagioneSociale(String ragioneSociale);
 }

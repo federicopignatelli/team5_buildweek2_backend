@@ -74,6 +74,18 @@ public class ClientiController {
     public List<Cliente> getClienteByFatturatoAnnuale(@RequestParam int fatturato){
         return this.clienteService.getClienteByFatturatoAnnuale(fatturato);
     }
+    @GetMapping("/by-fatturato-between")
+    public List<Cliente> getByFatturatoBetween(@RequestParam int minFatturato, @RequestParam int maxFatturato){
+        return this.clienteService.getClientiByFatturatoRange(minFatturato, maxFatturato);
+    }
+    @GetMapping("/by-fatturato-maggiore-di")
+    public List<Cliente> getByFatturatoGreaterThan(@RequestParam int minFatturato){
+        return this.clienteService.getClientiByFatturatoGreaterThan(minFatturato);
+    }
+    @GetMapping("/by-fatturato-minore-di")
+    public List<Cliente> getByFatturatoLowerThan(@RequestParam int maxFatturato){
+        return this.clienteService.getClientiByFatturatoLowerThan(maxFatturato);
+    }
 
     @GetMapping("/byragionesociale")
     public Cliente getClienteByRagioneSociale(@RequestParam String ragioneSociale){
@@ -116,8 +128,8 @@ public class ClientiController {
     }
 
     @PostMapping("/{id}/upload")
-    public String uploadLogoAziendale(@RequestParam("logoAziendale") MultipartFile file, @PathVariable UUID id) throws IOException, IOException {
-        return clienteService.uploadLogoAziendale(file);
+    public Cliente uploadLogoAziendale(@RequestParam("logoAziendale") MultipartFile file, @PathVariable UUID id) throws IOException, IOException {
+        return clienteService.uploadLogoAziendale(file,id);
     }
 
 }

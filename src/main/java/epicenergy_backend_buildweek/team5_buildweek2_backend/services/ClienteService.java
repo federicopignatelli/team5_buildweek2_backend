@@ -134,6 +134,15 @@ public class ClienteService {
     public List<Cliente> getClienteByFatturatoAnnuale(int fatturato){
         return this.clienteRepository.findByFatturatoAnnuale(fatturato);
     }
+    public List<Cliente> getClientiByFatturatoRange(int minFatturato, int maxFatturato){
+        return this.clienteRepository.findByRangeImporti(minFatturato,maxFatturato);
+    }
+    public List<Cliente> getClientiByFatturatoLowerThan(int maxFatturato){
+        return this.clienteRepository.findByFatturatoLowerThan(maxFatturato);
+    }
+    public List<Cliente> getClientiByFatturatoGreaterThan(int minFatturato) {
+        return this.clienteRepository.findByFatturatoBiggerThan(minFatturato);
+    }
 
     public List<Cliente> getClienteByDataInserimento(LocalDate date) {
         if(date == null) date = LocalDate.now();
@@ -147,11 +156,13 @@ public class ClienteService {
     public List<Cliente> getClienteByPartRagioneSociale(String ragioneSociale) {
         return clienteRepository.findByPartRagioneSociale(ragioneSociale);
     }
-    public String uploadLogoAziendale(MultipartFile file) throws IOException {
+    public Cliente uploadLogoAziendale(MultipartFile file, UUID pi) throws IOException {
         String url = (String) cloudinary.uploader()
                 .upload(file.getBytes(), ObjectUtils.emptyMap())
                 .get("url");
-        return url;
+        Cliente found = this.findByPartitaIva(pi);
+        found.setUrlLogoAziendale(url);
+        return this.clienteRepository.save(found);
     }
 
 }
