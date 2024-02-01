@@ -15,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -97,6 +98,11 @@ public class ClienteService {
 
     public List<Cliente> getClienteByFatturatoAnnuale(int fatturato){
         return this.clienteRepository.findByFatturatoAnnuale(fatturato);
+    }
+
+    public List<Cliente> getClienteByDataInserimento(LocalDate date) {
+        if(date == null) date = LocalDate.now();
+        return clienteRepository.findByDataInserimento(date);
     }
 
 }
