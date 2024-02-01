@@ -5,6 +5,7 @@ import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.Fattura;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.exceptions.BadRequestException;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.clienti.NewClienteDTOIdIndirizzo;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.clienti.NewClienteDTOIdIndirizzoResponse;
+import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.clienti.NewClienteDTOIndirizzoCompleto;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.clienti.UpdateClienteDTO;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.indirizzo.NewIndirizzoDTO;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.services.ClienteService;
@@ -34,8 +35,25 @@ public class ClientiController {
             throw new BadRequestException(validation.getAllErrors().toString());
         }
         Cliente newCliente = clienteService.save(body);
-        //inserire nella response anche l'id dell'indirizzo
-        return new NewClienteDTOIdIndirizzoResponse(newCliente.getRagioneSociale(), newCliente.getEmailAziendale());
+        return new NewClienteDTOIdIndirizzoResponse(
+                newCliente.getRagioneSociale(),
+                newCliente.getEmailAziendale(),
+                newCliente.getIndirizzoSedeOperativa().getId()
+        );
+    }
+    @PostMapping("/createWithAddress")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @ResponseStatus(HttpStatus.CREATED)
+    public NewClienteDTOIdIndirizzoResponse saveWithAddress(@RequestBody @Validated NewClienteDTOIndirizzoCompleto body, BindingResult validation) throws Exception {
+        if (validation.hasErrors()) {
+            throw new BadRequestException(validation.getAllErrors().toString());
+        }
+        Cliente newCliente = clienteService.saveWithAddress(body);
+        return new NewClienteDTOIdIndirizzoResponse(
+                newCliente.getRagioneSociale(),
+                newCliente.getEmailAziendale(),
+                newCliente.getIndirizzoSedeOperativa().getId()
+        );
     }
 
     @GetMapping("")

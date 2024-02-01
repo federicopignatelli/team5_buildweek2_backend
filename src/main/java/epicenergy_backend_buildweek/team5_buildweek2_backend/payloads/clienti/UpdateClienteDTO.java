@@ -7,18 +7,19 @@ import java.time.LocalDate;
 
 public record UpdateClienteDTO(
         String nomeContatto,
-        long telefonoContatto,
+        Long telefonoContatto,
         String emailContatto,
         String ragioneSociale,
         String emailAziendale,
         String pecAziendale,
-        long telefonoAziendale,
-        Indirizzo indirizzoSedeOperativa,
-        Indirizzo indirizzoSedeLegale,
-        String urlLogoAziendale,
-        TipoAzienda tipo,
-        LocalDate dataInserimento,
-        LocalDate dataUltimoContatto,
-        int fatturatoAnnuale
+        Long telefonoAziendale,
+      //  Indirizzo indirizzoSedeOperativa,
+      //  Indirizzo indirizzoSedeLegale,
+      //  String urlLogoAziendale,
+      //  TipoAzienda tipo,
+        String tipo,
+      //  LocalDate dataInserimento,
+      //  LocalDate dataUltimoContatto,
+        Integer fatturatoAnnuale
 ) {
 }

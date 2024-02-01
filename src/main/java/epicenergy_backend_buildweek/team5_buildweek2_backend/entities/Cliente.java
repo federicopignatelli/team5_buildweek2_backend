@@ -20,17 +20,17 @@ public class Cliente {
     @Setter(AccessLevel.NONE)
     private UUID partitaIva;
     private String nomeContatto;
-    private long telefonoContatto;
+    private Long telefonoContatto;
     private String emailContatto;
     private String ragioneSociale;
 
     private String emailAziendale;
     private String pecAziendale;
-    private long telefonoAziendale;
-    @OneToOne
+    private Long telefonoAziendale;
+    @ManyToOne
     @JoinColumn(name = "sede_operativa_id")
     private Indirizzo indirizzoSedeOperativa;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "sede_legale_id")
     private Indirizzo indirizzoSedeLegale;
     private String urlLogoAziendale;
@@ -40,7 +40,7 @@ public class Cliente {
     private LocalDate dataInserimento = LocalDate.now();
     private LocalDate dataUltimoContatto;
 
-    private int fatturatoAnnuale;
+    private Integer fatturatoAnnuale;
     public Cliente(String ragioneSociale, String emailAziendale, Indirizzo indirizzoSedeOperativa) {
         this.ragioneSociale = ragioneSociale;
         this.emailAziendale = emailAziendale;
