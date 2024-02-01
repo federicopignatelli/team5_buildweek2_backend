@@ -1,9 +1,12 @@
 package epicenergy_backend_buildweek.team5_buildweek2_backend.services;
 
 import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.Cliente;
+import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.Comune;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.Indirizzo;
+import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.enums.TipoAzienda;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.exceptions.NotFoundException;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.clienti.NewClienteDTOIdIndirizzo;
+import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.clienti.NewClienteDTOIndirizzoCompleto;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.clienti.UpdateClienteDTO;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.indirizzo.NewIndirizzoDTO;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.repositories.ClienteRepository;
@@ -23,6 +26,8 @@ public class ClienteService {
     private ClienteRepository clienteRepository;
     @Autowired
     private IndirizzoService indirizzoService;
+    @Autowired
+    private ComuneService comuneService;
     public Page<Cliente> findAll(int pageNumber, int size, String orderBy){
         if(size>100) size = 100;
         Pageable pageable = PageRequest.of(pageNumber,size, Sort.by(orderBy));
@@ -36,8 +41,6 @@ public class ClienteService {
         Cliente found = this.findByPartitaIva(pi);
         clienteRepository.delete(found);
     }
-    //public create
-    //meteo create/save cliente da fare
 
     public Cliente save(NewClienteDTOIdIndirizzo body){
         Indirizzo indirizzo = indirizzoService.findById(body.idIndirizzo());
@@ -50,6 +53,14 @@ public class ClienteService {
         return clienteRepository.save(newCliente);
     }
 
+    public Cliente saveWithAddress(NewClienteDTOIndirizzoCompleto body){
+        NewIndirizzoDTO newIndirizzoDTO = new NewIndirizzoDTO(body.via(), body.civico(), body.località(), body.CAP(), body.idcomune());
+        Indirizzo indirizzo = this.indirizzoService.save(newIndirizzoDTO);
+        Cliente newCliente = new Cliente(body.ragioneSociale(), body.emailAziendale(),indirizzo);
+        return clienteRepository.save(newCliente);
+    }
+
+
 
     public Cliente findByPartitaIvaAndUpdate (UpdateClienteDTO body, UUID partitaIva){
 
@@ -57,7 +68,7 @@ public class ClienteService {
         if (body.nomeContatto() != null)
         {found.setNomeContatto(body.nomeContatto());}
 
-        if (body.telefonoContatto() != 0)
+        if (body.telefonoContatto() != null)
         {found.setTelefonoContatto(body.telefonoContatto());}
 
         if (body.emailContatto() != null)
@@ -66,12 +77,26 @@ public class ClienteService {
         if (body.ragioneSociale() != null)
         {found.setRagioneSociale(body.ragioneSociale());}
 
-        if (body.indirizzoSedeOperativa() != null)
-        {found.setIndirizzoSedeOperativa(body.indirizzoSedeOperativa());}
+        if (body.pecAziendale() != null)
+        {found.setPecAziendale(body.pecAziendale());}
 
-        if (body.indirizzoSedeLegale() != null)
-        {found.setIndirizzoSedeLegale(body.indirizzoSedeLegale());}
-        return null;
+        if (body.telefonoAziendale() != null)
+        {found.setTelefonoAziendale(body.telefonoAziendale());}
+        if(body.tipo()!=null){
+            if (body.tipo().equalsIgnoreCase("pa")){
+                found.setTipo(TipoAzienda.PA);
+            } else if (body.tipo().equalsIgnoreCase("sas")) {
+                found.setTipo(TipoAzienda.SAS);
+            } else if (body.tipo().equalsIgnoreCase("spa")) {
+                found.setTipo(TipoAzienda.SPA);
+            } else if (body.tipo().equalsIgnoreCase("srl")) {
+                found.setTipo(TipoAzienda.SRL);
+            }
+        }
+        if(body.fatturatoAnnuale()!=null){
+            found.setFatturatoAnnuale(body.fatturatoAnnuale());
+        }
+        return found;
     }
 
     public Cliente findByPartitaIvaAndUpdateIndirizzoSedeLegale (NewIndirizzoDTO body, UUID partitaIva){
