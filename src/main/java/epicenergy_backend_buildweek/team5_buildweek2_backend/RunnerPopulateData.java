@@ -34,8 +34,8 @@ public class RunnerPopulateData implements CommandLineRunner {
         Path pathComuni = Paths.get("src/main/java/epicenergy_backend_buildweek/team5_buildweek2_backend/csvData/comuni-italiani.csv");
         Path pathProvince = Paths.get("src/main/java/epicenergy_backend_buildweek/team5_buildweek2_backend/csvData/province-italiane.csv");
 
-  //      populateData.readAllLines(pathProvince);
-  //      populateData.readAllLines(pathComuni);
+        populateData.readAllLines(pathProvince);
+        populateData.readAllLines(pathComuni);
 
 //        List<Comune> comuni = comuneService.findByProvincia("Torino");
 //        comuni.forEach(System.out::println);

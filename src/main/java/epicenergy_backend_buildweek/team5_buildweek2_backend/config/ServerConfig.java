@@ -12,9 +12,9 @@ import java.util.Map;
 public class ServerConfig {
 
     @Bean
-    public Cloudinary cloudinary(@Value("${CLOUDINARY_NAME}") String name,
-                                 @Value("${CLOUDINARY_API_KEY}") String apikey,
-                                 @Value("${CLOUDINARY_SECRET}") String secret){
+    public Cloudinary cloudinary(@Value("${cloudinary.name}") String name,
+                                 @Value("${cloudinary.apikey}") String apikey,
+                                 @Value("${cloudinary.secret}") String secret){
         Map<String, String> config = new HashMap<>();
         config.put("cloud_name", name);
         config.put("cloud_key", apikey);

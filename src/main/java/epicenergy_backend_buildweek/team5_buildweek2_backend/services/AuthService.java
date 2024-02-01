@@ -57,7 +57,9 @@ public class AuthService {
         newUser.setUsername(body.username());
         newUser.setEmail(body.email());
         newUser.setPassword(bcrypt.encode(body.password()));
-        if (body.role().equalsIgnoreCase("admin")){
+        if (body.role()==null){
+            newUser.setRole(Role.USER);
+        }else if (body.role().equalsIgnoreCase("admin")){
             newUser.setRole(Role.ADMIN);
         }else{
             newUser.setRole(Role.USER);

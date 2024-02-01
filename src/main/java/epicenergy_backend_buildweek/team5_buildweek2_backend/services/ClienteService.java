@@ -109,7 +109,7 @@ public class ClienteService {
         if(body.fatturatoAnnuale()!=null){
             found.setFatturatoAnnuale(body.fatturatoAnnuale());
         }
-        return found;
+        return this.clienteRepository.save(found);
     }
 
     public Cliente findByPartitaIvaAndUpdateIndirizzoSedeLegale (NewIndirizzoDTO body, UUID partitaIva){

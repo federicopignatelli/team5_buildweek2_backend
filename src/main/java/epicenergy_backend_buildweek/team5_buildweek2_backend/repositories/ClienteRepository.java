@@ -14,8 +14,8 @@ import java.util.UUID;
 public interface ClienteRepository extends JpaRepository<Cliente, UUID> {
     Cliente findByRagioneSociale(String ragioneSociale);
 
-    @Query("SELECT c FROM Cliente c WHERE EXTRACT(FATTURATO FROM fatturatoAnnuale) = :fatturato")
-    List<Cliente> findByFatturatoAnnuale(int fatturato);
+    @Query("SELECT c FROM Cliente c WHERE c.fatturatoAnnuale = :fatturato")
+    List<Cliente> findByFatturatoAnnuale(Integer fatturato);
 
     List<Cliente> findByDataInserimento(LocalDate dataInserimento);
 

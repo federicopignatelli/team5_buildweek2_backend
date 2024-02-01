@@ -99,7 +99,7 @@ public class ClientiController {
     public Cliente findByPartitaIvaAndUpdate(@PathVariable UUID id, @RequestBody UpdateClienteDTO body) {
         return clienteService.findByPartitaIvaAndUpdate(body, id);
     }
-    @PutMapping("/{id}")
+    @PutMapping("/{id}/update-data-ultimo-contatto")
     public Cliente findByPartitaIvaAndUpdateDataUltimoContatto(@PathVariable UUID id, @RequestBody LocalDate date){
         return this.clienteService.updateDataUltimoContatto(id, date);
     }
