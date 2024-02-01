@@ -4,16 +4,13 @@ import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.Comune;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.services.ComuneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 // only ADMINs can register
 @RestController
-@RequestMapping("/comune")
+@RequestMapping("/comuni")
 public class ComuneController {
     @Autowired
     private ComuneService comuneService;
@@ -23,5 +20,10 @@ public class ComuneController {
                                   @RequestParam(defaultValue = "10") int size,
                                   @RequestParam(defaultValue = "id") String orderBy) {
         return comuneService.getComuni(page, size, orderBy);
+    }
+
+    @GetMapping("/{comune}")
+    public List<Comune> getByNomeComune(@PathVariable String comune) {
+        return comuneService.findByName(comune.substring(0, 1).toUpperCase() + comune.substring(1));
     }
 }

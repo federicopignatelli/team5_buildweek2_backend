@@ -20,8 +20,6 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
-
-
     @PostMapping("/login")
     public UserLoginResponseDTO login(@RequestBody UserLoginDTO body) {
         String accessToken = authService.authenticateUser(body);

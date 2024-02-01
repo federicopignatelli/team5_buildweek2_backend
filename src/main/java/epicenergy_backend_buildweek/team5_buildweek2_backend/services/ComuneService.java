@@ -34,6 +34,10 @@ public class ComuneService {
         return this.comuneRepository.findById(id).orElseThrow(()->new NotFoundException(id));
     }
 
+    public List<Comune> findByName(String comune) {
+        return comuneRepository.findByName(comune);
+    }
+
 
 //    public List<Comune> findByProvincia(String provincia) {
 //        Provincia p = provinciaRepository.findByProvincia(provincia);

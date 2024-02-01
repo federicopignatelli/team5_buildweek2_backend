@@ -24,7 +24,6 @@ public class IndirizzoController {
     @Autowired
     private IndirizzoService indirizzoService;
 
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public NewIndirizzoResponseDTO saveIndirizzo(@RequestBody @Validated NewIndirizzoDTO body, BindingResult validation) throws Exception {

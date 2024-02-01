@@ -17,6 +17,9 @@ public interface ComuneRepository extends JpaRepository<Comune,Long> {
     @Query("SELECT c FROM Provincia p JOIN p.comuneList c WHERE p.provincia LIKE CONCAT('%', :provincia, '%')")
     List<Comune> findByProvincia(@Param("provincia") String provincia);
 
-    @Override
-    List<Comune> findAll();
+//    @Override
+//    List<Comune> findAll();
+
+    @Query("SELECT c FROM Comune c WHERE c.denominazioneInItaliano LIKE CONCAT('%', :comune, '%')")
+    List<Comune> findByName(@Param("comune") String comune);
 }
