@@ -7,6 +7,7 @@ import epicenergy_backend_buildweek.team5_buildweek2_backend.exceptions.BadReque
 import epicenergy_backend_buildweek.team5_buildweek2_backend.exceptions.UnauthorizedException;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.users.NewUserDTO;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.users.UserLoginDTO;
+import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.users.UserLoginResponseDTO;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.repositories.UserDAO;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.security.JWTTools;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,10 @@ public class AuthService {
         } else {
             throw new UnauthorizedException("Credenziali non valide!");
         }
+    }
+
+    public User findByEmail(UserLoginDTO body) {
+        return usersService.findByEmail(body.email());
     }
 
     public User save(NewUserDTO body) {
