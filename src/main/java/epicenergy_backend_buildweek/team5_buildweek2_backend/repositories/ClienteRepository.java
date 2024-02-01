@@ -18,4 +18,9 @@ public interface ClienteRepository extends JpaRepository<Cliente, UUID> {
     List<Cliente> findByFatturatoAnnuale(int fatturato);
 
     List<Cliente> findByDataInserimento(LocalDate dataInserimento);
+
+    List<Cliente> findByDataUltimoContatto(LocalDate dataInserimento);
+
+    @Query ("SELECT c FROM Cliente c WHERE LOWER(c.ragioneSociale) LIKE LOWER(:ragioneSociale)")
+    List<Cliente> findByPartRagioneSociale(String ragioneSociale);
 }

@@ -105,4 +105,12 @@ public class ClienteService {
         return clienteRepository.findByDataInserimento(date);
     }
 
+    public List<Cliente> getClienteByUtimoContatto(LocalDate date) {
+        return clienteRepository.findByDataUltimoContatto(date);
+    }
+
+    public List<Cliente> getClienteByPartRagioneSociale(String ragioneSociale) {
+        return clienteRepository.findByPartRagioneSociale(ragioneSociale);
+    }
+
 }

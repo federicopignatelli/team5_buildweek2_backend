@@ -55,9 +55,24 @@ public class ClientiController {
         return this.clienteService.getClienteByFatturatoAnnuale(fatturato);
     }
 
+    @GetMapping("/byragionesociale")
+    public Cliente getClienteByRagioneSociale(@RequestParam String ragioneSociale){
+        return this.clienteService.findByRagioneSociale(ragioneSociale);
+    }
+
     @GetMapping("/bydatainserimento")
     public List<Cliente> getClienteByDataInserimento(@RequestParam LocalDate date){
         return this.clienteService.getClienteByDataInserimento(date);
+    }
+
+    @GetMapping("/bydataultimocontatto")
+    public List<Cliente> getClienteByDataUltimoContatto(@RequestParam LocalDate date){
+        return this.clienteService.getClienteByUtimoContatto(date);
+    }
+
+    @GetMapping("/bypartragionesociale")
+    public List<Cliente> getClienteByPartRagioneSociale(@RequestParam String ragioneSociale){
+        return this.clienteService.getClienteByPartRagioneSociale(ragioneSociale);
     }
 
     @PutMapping("/{id}")
