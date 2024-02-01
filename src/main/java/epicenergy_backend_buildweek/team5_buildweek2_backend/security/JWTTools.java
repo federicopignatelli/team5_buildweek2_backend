@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 @Component
 public class JWTTools {
@@ -17,6 +20,7 @@ public class JWTTools {
 
 	public String createToken(User user) {
 		return Jwts.builder().subject(String.valueOf(user.getId()))
+				.subject(String.valueOf(user.getId()))
 				.issuedAt(new Date(System.currentTimeMillis()))
 				.expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 7))
 				.signWith(Keys.hmacShaKeyFor(secret.getBytes()))

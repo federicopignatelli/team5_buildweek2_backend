@@ -7,6 +7,7 @@ import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.users.NewU
 import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.users.UserLoginDTO;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.users.UserLoginResponseDTO;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.services.AuthService;
+import epicenergy_backend_buildweek.team5_buildweek2_backend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
@@ -19,10 +20,22 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
+
+
     @PostMapping("/login")
     public UserLoginResponseDTO login(@RequestBody UserLoginDTO body) {
         String accessToken = authService.authenticateUser(body);
-        return new UserLoginResponseDTO(accessToken);
+        User user = authService.findByEmail(body);
+
+        return new UserLoginResponseDTO(
+                accessToken,
+                user.getId(),
+                user.getName(),
+                user.getRole().toString(),
+                user.getSurname(),
+                user.getUsername(),
+                user.getAvatar()
+        );
     }
 
     @PostMapping("/register")
