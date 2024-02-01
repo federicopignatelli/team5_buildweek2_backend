@@ -1,6 +1,7 @@
 package epicenergy_backend_buildweek.team5_buildweek2_backend.services;
 
 import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.Cliente;
+import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.Fattura;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.Indirizzo;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.exceptions.NotFoundException;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.clienti.NewClienteDTOIdIndirizzo;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 
@@ -91,6 +93,10 @@ public class ClienteService {
     }
     public Cliente findByRagioneSociale(String ragioneSociale){
         return clienteRepository.findByRagioneSociale(ragioneSociale);
+    }
+
+    public List<Cliente> getClienteByFatturatoAnnuale(int fatturato){
+        return this.clienteRepository.findByFatturatoAnnuale(fatturato);
     }
 
 }
