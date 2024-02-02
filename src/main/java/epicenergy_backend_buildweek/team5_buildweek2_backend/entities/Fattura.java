@@ -33,4 +33,10 @@ public class Fattura {
         this.importo = importo;
         this.cliente = cliente;
     }
+
+    public Fattura(LocalDate dataEmissione, double importo, Cliente cliente) {
+        this.dataEmissione = dataEmissione;
+        this.importo = importo;
+        this.cliente = cliente;
+    }
 }

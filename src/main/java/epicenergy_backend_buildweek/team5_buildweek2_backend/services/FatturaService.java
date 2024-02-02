@@ -102,5 +102,11 @@ public class FatturaService {
         StatoFattura statoFattura = this.statoFatturaService.findByStato(stato);
         return this.fatturaRepository.findByStato(statoFattura);
     }
+
+    //save per il runner
+    public void savedatarunner (Fattura fattura) {
+        fatturaRepository.save(fattura);
+        System.out.println("fattura salvata nel db");
+    }
 }
 

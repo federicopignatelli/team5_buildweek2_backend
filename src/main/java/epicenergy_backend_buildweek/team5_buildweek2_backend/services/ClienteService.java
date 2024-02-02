@@ -214,6 +214,7 @@ public class ClienteService {
         return this.clienteRepository.save(found);
     }
 
+    //save per il runner
     public void savedatarunner (Cliente cliente) {
         clienteRepository.save(cliente);
         System.out.println("cliente salvato nel db");

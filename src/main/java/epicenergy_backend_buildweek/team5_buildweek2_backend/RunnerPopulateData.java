@@ -1,14 +1,9 @@
 package epicenergy_backend_buildweek.team5_buildweek2_backend;
 
 import epicenergy_backend_buildweek.team5_buildweek2_backend.csvData.PopulateData;
-import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.Cliente;
-import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.Comune;
-import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.Provincia;
+import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.*;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.repositories.ProvinciaRepository;
-import epicenergy_backend_buildweek.team5_buildweek2_backend.services.ClienteService;
-import epicenergy_backend_buildweek.team5_buildweek2_backend.services.ComuneService;
-import epicenergy_backend_buildweek.team5_buildweek2_backend.services.IndirizzoService;
-import epicenergy_backend_buildweek.team5_buildweek2_backend.services.ProvinciaService;
+import epicenergy_backend_buildweek.team5_buildweek2_backend.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -17,6 +12,7 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.List;
 
 @Component
@@ -36,6 +32,9 @@ public class RunnerPopulateData implements CommandLineRunner {
 
     @Autowired
     private IndirizzoService indirizzoService;
+
+    @Autowired
+    private FatturaService fatturaService;
 
     @Override
     public void run(String... args) throws Exception {
@@ -72,9 +71,28 @@ public class RunnerPopulateData implements CommandLineRunner {
         clienteService.savedatarunner(cliente9);
         clienteService.savedatarunner(cliente10);
 
-
-
-
+        Fattura fattura1 = new Fattura(LocalDate.of(2023, 5, 15), 1234, cliente0);
+        Fattura fattura2 = new Fattura(LocalDate.of(2023, 6, 20), 5678, cliente0);
+        Fattura fattura3 = new Fattura(LocalDate.of(2023, 7, 25), 91011, cliente0);
+        Fattura fattura4 = new Fattura(LocalDate.of(2023, 8, 30), 121314, cliente1);
+        Fattura fattura5 = new Fattura(LocalDate.of(2023, 9, 5), 151617, cliente1);
+        Fattura fattura6 = new Fattura(LocalDate.of(2023, 10, 10), 181920, cliente1);
+        Fattura fattura7 = new Fattura(LocalDate.of(2023, 11, 15), 212223, cliente2);
+        Fattura fattura8 = new Fattura(LocalDate.of(2023, 12, 20), 242526, cliente2);
+        Fattura fattura9 = new Fattura(LocalDate.of(2024, 1, 25), 272829, cliente2);
+        Fattura fattura10 = new Fattura(LocalDate.of(2024, 2, 1), 303132, cliente3);
+        Fattura fattura11 = new Fattura(LocalDate.of(2024, 3, 7), 333435, cliente3);
+        fatturaService.savedatarunner(fattura1);
+        fatturaService.savedatarunner(fattura2);
+        fatturaService.savedatarunner(fattura3);
+        fatturaService.savedatarunner(fattura4);
+        fatturaService.savedatarunner(fattura5);
+        fatturaService.savedatarunner(fattura6);
+        fatturaService.savedatarunner(fattura7);
+        fatturaService.savedatarunner(fattura8);
+        fatturaService.savedatarunner(fattura9);
+        fatturaService.savedatarunner(fattura10);
+        fatturaService.savedatarunner(fattura11);
 
     }
 }
