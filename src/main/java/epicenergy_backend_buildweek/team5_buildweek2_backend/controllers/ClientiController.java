@@ -28,7 +28,7 @@ public class ClientiController {
 
     @PostMapping("/addClient")
     @ResponseStatus(HttpStatus.CREATED)
-    public NewClienteResponseDTO save(@RequestBody @Validated NewClienteDTO body, BindingResult validation) throws  Exception{
+    public NewClienteResponseDTO saveWithFullInfo(@RequestBody @Validated NewClienteDTO body, BindingResult validation) throws  Exception{
         if (validation.hasErrors()) {
             throw new BadRequestException(validation.getAllErrors().toString());
         }

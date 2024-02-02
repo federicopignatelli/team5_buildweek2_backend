@@ -17,7 +17,6 @@ import java.util.UUID;
 public record NewClienteDTO(
         NewIndirizzoDTO addressSedeLegale,
         NewIndirizzoDTO addressSedeOperativo,
-        UUID partitaIva,
         String nomeContatto,
         Long telefonoContatto,
         String emailContatto,
@@ -25,6 +24,7 @@ public record NewClienteDTO(
         String emailAziendale,
         String pecAziendale,
         Long telefonoAziendale,
+
         // better to be a url
         String urlLogoAziendale,
         String tipoAziendale,

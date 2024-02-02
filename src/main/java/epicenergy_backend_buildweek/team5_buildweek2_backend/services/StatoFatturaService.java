@@ -26,6 +26,9 @@ public class StatoFatturaService {
     public StatoFattura findByStato(String stato){
         return this.statoFatturaRepository.findById(stato).orElseThrow(()->new NotFoundException(stato));
     }
+    public StatoFattura save(String stato){
+        return this.statoFatturaRepository.save(new StatoFattura(stato));
+    }
 
     public void findByStatoAndDelete(String stato) {
         StatoFattura found = this.findByStato(stato);
