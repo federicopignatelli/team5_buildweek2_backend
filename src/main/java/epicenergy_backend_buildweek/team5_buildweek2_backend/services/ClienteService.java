@@ -32,11 +32,6 @@ public class ClienteService {
     private ClienteRepository clienteRepository;
     @Autowired
     private IndirizzoService indirizzoService;
-
-    @Autowired
-    private IndirizzoRepository indirizzoRepository;
-    @Autowired
-    private ComuneService comuneService;
     @Autowired
     private Cloudinary cloudinary;
     public Page<Cliente> findAll(int pageNumber, int size, String orderBy){
@@ -54,23 +49,8 @@ public class ClienteService {
     }
 
     public Cliente saveWithFullInfo(NewClienteDTO body) {
-        Comune c1 = comuneService.findById(body.addressSedeLegale().idcomune());
-        Comune c2 = comuneService.findById(body.addressSedeOperativo().idcomune());
-        Indirizzo in1 = new Indirizzo();
-        in1.setVia(body.addressSedeLegale().via());
-        in1.setCivico(body.addressSedeLegale().civico());
-        in1.setLocalità(body.addressSedeLegale().località());
-        in1.setCAP(body.addressSedeLegale().CAP());
-        in1.setComune(c1);
-        indirizzoRepository.save(in1);
-
-        Indirizzo in2 = new Indirizzo();
-        in2.setVia(body.addressSedeOperativo().via());
-        in2.setCivico(body.addressSedeOperativo().civico());
-        in2.setLocalità(body.addressSedeOperativo().località());
-        in2.setCAP(body.addressSedeOperativo().CAP());
-        in2.setComune(c2);
-        indirizzoRepository.save(in2);
+        Indirizzo in1 = this.indirizzoService.save(body.addressSedeLegale());
+        Indirizzo in2 = this.indirizzoService.save(body.addressSedeOperativo());
 
         Cliente cliente = new Cliente();
         cliente.setNomeContatto(body.nomeContatto());
@@ -96,6 +76,7 @@ public class ClienteService {
             cliente.setTipo(TipoAzienda.SRL);
         }
         cliente.setFatturatoAnnuale(body.fatturatoAnnuale());
+        cliente.setDataUltimoContatto(LocalDate.now());
 
         return clienteRepository.save(cliente);
     }

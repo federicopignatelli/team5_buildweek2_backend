@@ -35,6 +35,16 @@ public class FattureController {
     public FatturaResponseDTO createNewBill(@RequestBody NewFatturaDTO body){
         return this.fatturaService.save(body);
     }
+    @PutMapping("/{numeroFattura}/setPaid")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public FatturaResponseDTO setPaid(@PathVariable long numeroFattura){
+        return this.fatturaService.setPaid(numeroFattura);
+    }
+    @PutMapping("/{numeroFattura}/setCustomState")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public FatturaResponseDTO setCustomState(@PathVariable long numeroFattura,@RequestParam String customState){
+        return this.fatturaService.setCustomState(numeroFattura,customState);
+    }
     @DeleteMapping("/{numeroFattura}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -66,10 +76,11 @@ public class FattureController {
                 fattura.getDataEmissione(),
                 fattura.getImporto(),
                 fattura.getCliente().getPartitaIva(),
-                fattura.getCliente().getRagioneSociale()
+                fattura.getCliente().getRagioneSociale(),
+                fattura.getStato().toString()
         )).toList();
         return returnList;
- }
+    }
 
     @GetMapping("/fatturePIcliente")
     public List<Fattura> getFattureByPICliente(@RequestParam UUID piCliente) {

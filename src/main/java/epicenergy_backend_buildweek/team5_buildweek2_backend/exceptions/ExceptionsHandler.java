@@ -4,18 +4,18 @@ import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.users.Erro
 import org.apache.coyote.BadRequestException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.nio.file.AccessDeniedException;
 import java.time.LocalDateTime;
 
 @RestControllerAdvice
 public class ExceptionsHandler {
-    @ExceptionHandler(BadRequestException.class)
+    @ExceptionHandler(epicenergy_backend_buildweek.team5_buildweek2_backend.exceptions.BadRequestException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorsDTO handleBadRequest(BadRequestException ex) {
+    public ErrorsDTO handleBadRequest(epicenergy_backend_buildweek.team5_buildweek2_backend.exceptions.BadRequestException ex) {
         return new ErrorsDTO(ex.getMessage(), LocalDateTime.now());
     }
 
@@ -27,7 +27,7 @@ public class ExceptionsHandler {
 
     @ExceptionHandler(AccessDeniedException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
-    public ErrorsDTO handleAccessDenied(AccessDeniedException ex) {
+    public ErrorsDTO handleAccessDenied(org.springframework.security.access.AccessDeniedException ex) {
         return new ErrorsDTO("Il tuo ruolo non permette di accedere a questa funzionalità!", LocalDateTime.now());
     }
 

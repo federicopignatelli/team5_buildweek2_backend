@@ -20,7 +20,7 @@ public class Indirizzo {
     private int civico;
     private String località;
     private String CAP;
-    @OneToOne
+    @ManyToOne
     @JoinColumn
     private Comune comune;
 

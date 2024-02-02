@@ -28,7 +28,8 @@ public class FatturaService {
     private FatturaResponseDTO convertToDTO(Fattura fattura){
         return new FatturaResponseDTO(fattura.getNumero(),fattura.getDataEmissione(),
                 fattura.getImporto(), fattura.getCliente().getPartitaIva(),
-                fattura.getCliente().getRagioneSociale());
+                fattura.getCliente().getRagioneSociale(),
+                fattura.getStato().toString());
     }
     private Fattura findById(long id){
         return this.fatturaRepository.findById(id).orElseThrow(()->new NotFoundException(id));
@@ -49,17 +50,30 @@ public class FatturaService {
     public FatturaResponseDTO findByNumero(long numero){
         return this.convertToDTO(this.findById(numero));
     }
+    public FatturaResponseDTO setPaid(long numero){
+        Fattura found = this.findById(numero);
+        found.setStato(statoFatturaService.findByStato("PAGATO"));
+        return this.convertToDTO(this.fatturaRepository.save(found));
+    }
+    public FatturaResponseDTO setCustomState(long numero, String customState){
+        Fattura found = this.findById(numero);
+        StatoFattura newState = this.statoFatturaService.save(customState);
+        found.setStato(newState);
+        return this.convertToDTO(this.fatturaRepository.save(found));
+    }
     public FatturaResponseDTO save(NewFatturaDTO body){
         Cliente found = this.clienteService.findByPartitaIva(body.idCliente());
         Fattura nuovaFattura = new Fattura(body.importo(), found);
         found.setDataUltimoContatto(LocalDate.now());
         this.clienteService.updateDataUltimoContatto(body.idCliente(),LocalDate.now());
+        nuovaFattura.setStato(statoFatturaService.findByStato("IN CORSO"));
         fatturaRepository.save(nuovaFattura);
         return new FatturaResponseDTO(nuovaFattura.getNumero(),
                 nuovaFattura.getDataEmissione(),
                 nuovaFattura.getImporto(),
                 found.getPartitaIva(),
-                found.getRagioneSociale());
+                found.getRagioneSociale(),
+                nuovaFattura.getStato().toString());
     }
     public void findByNumeroAndDelete(long numero) {
         Fattura found = this.findById(numero);
@@ -87,6 +101,7 @@ public class FatturaService {
                 return fatturaRepository.findByImportoBiggerThan(minImporto);
             }
         }
+        if(minImporto==null)minImporto=0.0;
         return fatturaRepository.findByRangeImporti(minImporto, maxImporto);
     }
 
