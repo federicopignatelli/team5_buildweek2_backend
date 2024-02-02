@@ -1,7 +1,14 @@
 package epicenergy_backend_buildweek.team5_buildweek2_backend;
 
 import epicenergy_backend_buildweek.team5_buildweek2_backend.csvData.PopulateData;
+
 import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.*;
+
+import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.Cliente;
+import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.Comune;
+import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.Provincia;
+import epicenergy_backend_buildweek.team5_buildweek2_backend.repositories.IndirizzoRepository;
+
 import epicenergy_backend_buildweek.team5_buildweek2_backend.repositories.ProvinciaRepository;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,6 +100,8 @@ public class RunnerPopulateData implements CommandLineRunner {
         fatturaService.savedatarunner(fattura9);
         fatturaService.savedatarunner(fattura10);
         fatturaService.savedatarunner(fattura11);
+
+
 
     }
 }
