@@ -22,7 +22,7 @@ public class Fattura {
     @Column(name = "importo (€)")
     private double importo;
     @Setter
-    @OneToOne
+    @ManyToOne
     @JoinColumn
     private StatoFattura stato;
     @ManyToOne

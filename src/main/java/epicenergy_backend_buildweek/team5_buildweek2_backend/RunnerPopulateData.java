@@ -60,7 +60,7 @@ public class RunnerPopulateData implements CommandLineRunner {
         Cliente cliente8 = new Cliente("Hermione Granger", 4445556667L, "hermione@example.com", "Wizardry Lane", "Magic Town");
         Cliente cliente9 = new Cliente("Indiana Jones", 8889990001L, "indy@gmail.com", "Adventure Avenue", "Archaeology City");
         Cliente cliente10 = new Cliente("Jack Sparrow", 2223334445L, "jack@yahoo.com", "Pirate Street", "Tortuga");
-        clienteService.savedatarunner(cliente0);
+        /*clienteService.savedatarunner(cliente0);
         clienteService.savedatarunner(cliente1);
         clienteService.savedatarunner(cliente2);
         clienteService.savedatarunner(cliente3);
@@ -71,7 +71,7 @@ public class RunnerPopulateData implements CommandLineRunner {
         clienteService.savedatarunner(cliente8);
         clienteService.savedatarunner(cliente9);
         clienteService.savedatarunner(cliente10);
-
+*/
 
 
 
