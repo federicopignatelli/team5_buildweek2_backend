@@ -29,4 +29,5 @@ public interface ClienteRepository extends JpaRepository<Cliente, UUID> {
 
     @Query ("SELECT c FROM Cliente c WHERE LOWER(c.ragioneSociale) LIKE CONCAT('%', LOWER(:ragioneSociale), '%')")
     List<Cliente> findByPartRagioneSociale(String ragioneSociale);
+
 }
