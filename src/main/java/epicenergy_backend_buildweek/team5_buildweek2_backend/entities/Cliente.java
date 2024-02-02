@@ -48,5 +48,11 @@ public class Cliente {
         this.indirizzoSedeOperativa = indirizzoSedeOperativa;
     }
 
-
+    public Cliente(String nomeContatto, Long telefonoContatto, String emailContatto, String ragioneSociale, String emailAziendale) {
+        this.nomeContatto = nomeContatto;
+        this.telefonoContatto = telefonoContatto;
+        this.emailContatto = emailContatto;
+        this.ragioneSociale = ragioneSociale;
+        this.emailAziendale = emailAziendale;
+    }
 }
