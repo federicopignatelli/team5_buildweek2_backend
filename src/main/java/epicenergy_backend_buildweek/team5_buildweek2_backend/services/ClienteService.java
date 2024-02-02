@@ -8,11 +8,10 @@ import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.Fattura;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.Indirizzo;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.enums.TipoAzienda;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.exceptions.NotFoundException;
-import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.clienti.NewClienteDTOIdIndirizzo;
-import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.clienti.NewClienteDTOIndirizzoCompleto;
-import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.clienti.UpdateClienteDTO;
+import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.clienti.*;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.indirizzo.NewIndirizzoDTO;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.repositories.ClienteRepository;
+import epicenergy_backend_buildweek.team5_buildweek2_backend.repositories.IndirizzoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -33,6 +32,9 @@ public class ClienteService {
     private ClienteRepository clienteRepository;
     @Autowired
     private IndirizzoService indirizzoService;
+
+    @Autowired
+    private IndirizzoRepository indirizzoRepository;
     @Autowired
     private ComuneService comuneService;
     @Autowired
@@ -49,6 +51,53 @@ public class ClienteService {
     public void findByPartitaIvaAndDelete(UUID pi) {
         Cliente found = this.findByPartitaIva(pi);
         clienteRepository.delete(found);
+    }
+
+    public Cliente saveWithFullInfo(NewClienteDTO body) {
+        Comune c1 = comuneService.findById(body.addressSedeLegale().idcomune());
+        Comune c2 = comuneService.findById(body.addressSedeOperativo().idcomune());
+        Indirizzo in1 = new Indirizzo();
+        in1.setVia(body.addressSedeLegale().via());
+        in1.setCivico(body.addressSedeLegale().civico());
+        in1.setLocalità(body.addressSedeLegale().località());
+        in1.setCAP(body.addressSedeLegale().CAP());
+        in1.setComune(c1);
+        indirizzoRepository.save(in1);
+
+        Indirizzo in2 = new Indirizzo();
+        in2.setVia(body.addressSedeOperativo().via());
+        in2.setCivico(body.addressSedeOperativo().civico());
+        in2.setLocalità(body.addressSedeOperativo().località());
+        in2.setCAP(body.addressSedeOperativo().CAP());
+        in2.setComune(c2);
+        indirizzoRepository.save(in2);
+
+        Cliente cliente = new Cliente();
+        cliente.setNomeContatto(body.nomeContatto());
+        cliente.setTelefonoContatto(body.telefonoContatto());
+        cliente.setEmailContatto(body.emailContatto());
+        cliente.setRagioneSociale(body.ragioneSociale());
+        cliente.setEmailAziendale(body.emailAziendale());
+        cliente.setPecAziendale(body.pecAziendale());
+        cliente.setTelefonoAziendale(body.telefonoAziendale());
+        cliente.setUrlLogoAziendale(body.urlLogoAziendale());
+
+        cliente.setIndirizzoSedeLegale(in1);
+        cliente.setIndirizzoSedeOperativa(in2);
+
+        String tipo = body.tipoAziendale();
+        if(tipo.equalsIgnoreCase("pa")) {
+            cliente.setTipo(TipoAzienda.PA);
+        } else if (tipo.equalsIgnoreCase("sas")) {
+            cliente.setTipo(TipoAzienda.SAS);
+        } else if (tipo.equalsIgnoreCase("spa")) {
+            cliente.setTipo(TipoAzienda.SPA);
+        } else if (tipo.equalsIgnoreCase("srl")) {
+            cliente.setTipo(TipoAzienda.SRL);
+        }
+        cliente.setFatturatoAnnuale(body.fatturatoAnnuale());
+
+        return clienteRepository.save(cliente);
     }
 
     public Cliente save(NewClienteDTOIdIndirizzo body){

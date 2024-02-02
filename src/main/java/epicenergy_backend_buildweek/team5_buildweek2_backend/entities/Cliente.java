@@ -18,6 +18,7 @@ public class Cliente {
     @Id
     @GeneratedValue
     @Setter(AccessLevel.NONE)
+//    @Column(unique = true)
     private UUID partitaIva;
     private String nomeContatto;
     private Long telefonoContatto;

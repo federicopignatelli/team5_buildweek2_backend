@@ -3,10 +3,7 @@ package epicenergy_backend_buildweek.team5_buildweek2_backend.controllers;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.Cliente;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.Fattura;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.exceptions.BadRequestException;
-import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.clienti.NewClienteDTOIdIndirizzo;
-import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.clienti.NewClienteDTOIdIndirizzoResponse;
-import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.clienti.NewClienteDTOIndirizzoCompleto;
-import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.clienti.UpdateClienteDTO;
+import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.clienti.*;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.payloads.indirizzo.NewIndirizzoDTO;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +25,18 @@ import java.util.UUID;
 public class ClientiController {
     @Autowired
     private ClienteService clienteService;
+
+    @PostMapping("/addClient")
+    @ResponseStatus(HttpStatus.CREATED)
+    public NewClienteResponseDTO save(@RequestBody @Validated NewClienteDTO body, BindingResult validation) throws  Exception{
+        if (validation.hasErrors()) {
+            throw new BadRequestException(validation.getAllErrors().toString());
+        }
+        Cliente cliente = clienteService.saveWithFullInfo(body);
+        return new NewClienteResponseDTO(
+                cliente.getPartitaIva()
+        );
+    }
 
     @PostMapping("/create")
     @PreAuthorize("hasAuthority('ADMIN')")
