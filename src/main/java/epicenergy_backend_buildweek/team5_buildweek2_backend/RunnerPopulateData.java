@@ -3,8 +3,11 @@ package epicenergy_backend_buildweek.team5_buildweek2_backend;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.csvData.PopulateData;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.Comune;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.entities.Provincia;
+import epicenergy_backend_buildweek.team5_buildweek2_backend.repositories.IndirizzoRepository;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.repositories.ProvinciaRepository;
+import epicenergy_backend_buildweek.team5_buildweek2_backend.services.ClienteService;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.services.ComuneService;
+import epicenergy_backend_buildweek.team5_buildweek2_backend.services.IndirizzoService;
 import epicenergy_backend_buildweek.team5_buildweek2_backend.services.ProvinciaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -28,6 +31,16 @@ public class RunnerPopulateData implements CommandLineRunner {
     @Autowired
     private ComuneService comuneService;
 
+    @Autowired
+    private IndirizzoRepository indirizzoRepository;
+
+    @Autowired
+    private IndirizzoService indirizzoService;
+
+    @Autowired
+    private ClienteService clienteService;
+
+
     @Override
     public void run(String... args) throws Exception {
 
@@ -39,6 +52,8 @@ public class RunnerPopulateData implements CommandLineRunner {
 
 //        List<Comune> comuni = comuneService.findByProvincia("Torino");
 //        comuni.forEach(System.out::println);
+
+
 
 
     }
