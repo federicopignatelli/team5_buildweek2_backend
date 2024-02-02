@@ -44,6 +44,11 @@ public class ClienteService {
         Pageable pageable = PageRequest.of(pageNumber,size, Sort.by(orderBy));
         return this.clienteRepository.findAll(pageable);
     }
+
+    public List<Cliente> findAll() {
+        return clienteRepository.findAll();
+    }
+
     public Cliente findByPartitaIva(UUID pi){
         return this.clienteRepository.findById(pi).orElseThrow(()->new NotFoundException(pi));
     }

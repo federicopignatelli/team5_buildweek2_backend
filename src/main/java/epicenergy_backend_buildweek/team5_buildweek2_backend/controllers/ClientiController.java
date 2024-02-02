@@ -70,8 +70,14 @@ public class ClientiController {
     @GetMapping("")
     public Page<Cliente> findAll(@RequestParam(defaultValue = "0") int page,
                                   @RequestParam(defaultValue = "10") int size,
-                                  @RequestParam(defaultValue = "id") String sortBy) {
+                                  @RequestParam(defaultValue = "nomeContatto") String sortBy) {
         return clienteService.findAll(page, size, sortBy);
+    }
+
+    @GetMapping("/all")
+    public List<Cliente> findus()
+    {
+        return clienteService.findAll();
     }
 
     @GetMapping("/{id}")
